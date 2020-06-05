@@ -30,7 +30,7 @@ class Server {
 
       // Enrutamiento que hemos creado
       // Enrutamiento que hemos creado
-      router.setRouter(this.app);
+      router(this.app);
 
       // Configuracion del modo historia para
       // web app SPA como Vue en este modo
