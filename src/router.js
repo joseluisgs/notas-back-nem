@@ -3,13 +3,23 @@
  * Enrutador central
  */
 
+// Librerias
+import notas from './routes/notas';
 
 // exportamos los módulos
-module.exports.setRouter = (app) => {
+export default (app) => {
+
+  // Recurso notas
+  app.use('/api/notas', notas);
+
+  // Hola API
   // indicamos que para ruta quien la debe resolver
-  app.get('/', (req, res) => {
-    res.status(200).send('Hello Back end!');
+  app.get('/api', (req, res) => {
+    res.status(200).send('Hola API!');
   });
 
-
+  // indicamos que para ruta quien la debe resolver
+  app.get('/', (req, res) => {
+    res.status(200).send('Hola Back end!');
+  });
 };
