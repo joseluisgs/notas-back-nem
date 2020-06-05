@@ -48,7 +48,7 @@ class Database {
 
       // Si hay un error, salimos de la apliación
       this.conn.on('error', (err) => {
-        console.log('✕ Mongo Error', err);
+        console.error('✕ Mongo Error', err);
         return process.exit();
       });
 

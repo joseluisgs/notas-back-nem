@@ -17,18 +17,17 @@ class Server {
   // iniciamos el servidor
   constructor() {
     this.app = express();
-    this.mongoOK = false;
+    this.mongoDB = false;
   }
 
+  // eslint-disable-next-line consistent-return
   start() {
     // Cargamos express como servidor
     // Si no hay conexión a la base de datos no arancamos
-    this.mongoOK = db.connect().then(() => true);// Fin de la promesa
+    this.mongoDB = db.connect(); // Por si quiero poner algo para avisar que se conecta .then(() => console.log('⚑ Conectado a Servidor Mongo ✓'));
 
-    if (this.mongoOK) {
+    if (this.mongoDB) {
       config.setConfig(this.app);
-
-      // Enrutamiento que hemos creado
       // Enrutamiento que hemos creado
       router(this.app);
 
@@ -36,7 +35,6 @@ class Server {
       // web app SPA como Vue en este modo
       this.app.use(history());
       this.app.use(express.static(path.join(__dirname, 'public')));
-
 
       // Nos ponemos a escuchar a un puerto definido en la configuracion
       this.instancia = this.app.listen(env.PORT, () => {
@@ -52,7 +50,8 @@ class Server {
       });
       return this.instancia;
     }
-    return null;
+    console.error('✕ Error al crear el servidor');
+    process.exit();
   }
 
   // Cierra el servidor
