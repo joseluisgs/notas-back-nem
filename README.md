@@ -1,6 +1,6 @@
 # Notas-Back-NEM
 
-Backend para una apliación de notas usando NodeJS, Express y MongoDB
+Backend para una apliación de notas usando NodeJS, Express y MongoDB. como seimpre para uso docente y educativo.
 
 [![Licence](https://img.shields.io/github/license/joseluisgs/NodeMonRest)](https://github.com/joseluisgs/NodeMonRest/blob/master/LICENSE)
 [![JS Code](https://img.shields.io/badge/JS%20Code-ES2019-yellow)](https://www.ecma-international.org/ecma-262)
@@ -39,5 +39,5 @@ Tareas que podemos ejecutar dentro de nuestra aplicación. Te recomiendo leer el
 ![GitHub](https://img.shields.io/github/last-commit/joseluisgs/notas-back-nem)
 
 ## Licencia
-Este proyecto esta licenciado bajo licencia __MIT__, si desea saber más, visite el fichero [LICENSE](https://github.com/joseluisgs/joseluisgs-notas-back-nem/blob/master/LICENSE)
+Este proyecto esta licenciado bajo licencia __MIT__, si desea saber más, visite el fichero [LICENSE](https://github.com/joseluisgs/notas-back-nem/blob/master/LICENSE) para su uso docente y educativo.
 
