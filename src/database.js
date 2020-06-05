@@ -31,6 +31,7 @@ class Database {
   connect() {
     // Creamos una cadena de conexión según los parámetros de .env. Ojo que esta partida la línea
     const host = `${env.DB_PROTOCOL}://${env.DB_USER}:${env.DB_PASS}@${env.DB_URL}/${env.DB_NAME}?retryWrites=true&w=majority`;
+
     // Definimos una promesa que se resollverá si nos conecatmos correctamente
     return new Promise((resolve) => {
       // Configuramos el la conexión del cliente Mongo
@@ -48,13 +49,17 @@ class Database {
 
       // Si hay un error, salimos de la apliación
       this.conn.on('error', (err) => {
-        console.error('✕ Mongo Error', err);
+        if (process.env.NODE_ENV !== 'test') {
+          console.error('✕ Mongo Error', err);
+        }
         return process.exit();
       });
 
       // Si recibimos el evento conectamos
       this.conn.on('connected', () => {
-        console.log('⚑ Conectado a Servidor Mongo ✓');
+        if (process.env.NODE_ENV !== 'test') {
+          console.log('⚑ Conectado a Servidor Mongo ✓');
+        }
         resolve(); // Resolvemos la promesa
       });
     });
