@@ -1,12 +1,75 @@
 {
   "name": "notas-back-nem",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "description": "Backend de una apliación de Notas en NodeJS, Express y MongoDB",
+  "main": "src/index.js",
+  "keywords": [
+    "API REST",
+    "Node",
+    "MongoDB",
+    "JWT",
+    "Express"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joseluisgs/notas-back-nem"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "homepage": "",
+  "author": {
+    "name": "José Luis González Sánchez",
+    "twitter": "@joseluisgonsan"
+  },
+  "bugs": {
+    "url": "https://github.com/joseluisgs/notas-back-nem/issues",
+    "twitter": "@joseluisgonsan"
+  },
+  "engines": {
+    "node": ">= 10.0.0",
+    "npm": ">= 6.4.0",
+    "yarn": ">=1.22.2"
+  },
+  "scripts": {
+    "start-dev": "node --require @babel/register src/index.js",
+    "start": "node dist/index.js",
+    "watch": "nodemon",
+    "lint": "eslint 'src/**/*.js'",
+    "fix": "eslint --fix 'src/**/*.js'",
+    "clean": "rm -rf node_modules && npm run undist",
+    "reinstall": "npm run clean && npm run undist && npm install",
+    "build": "npm run undist && babel src -d dist && cp -r 'src/views' 'dist/views' && cp -r 'src/public' 'dist/public' && cp '.env_example' dist/.env",
+    "rebuild": "npm run clean && npm install && npm run undist && npm run build --prod",
+    "undist": "rm -rf dist",
+    "prune": "npm prune --production",
+    "test": "NODE_ENV=test mocha --exit --require @babel/register --timeout 10000 tests/",
+    "lint-ci": "eslint --fix --quiet 'src/**/*.js'"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "@babel/register": "^7.9.0",
+    "babel-eslint": "^10.1.0",
+    "babel-preset-airbnb": "^5.0.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "mocha": "^7.1.2",
+    "nodemon": "^2.0.3"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "connect-history-api-fallback": "^1.6.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.7-alpha.3",
+    "express-handlebars": "^4.0.4",
+    "jwt-simple": "^0.5.6",
+    "mongoose": "^5.9.11",
+    "morgan": "^1.10.0",
+    "uuid": "^8.0.0"
+  }
 }
