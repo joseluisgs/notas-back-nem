@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 /* eslint-disable no-underscore-dangle */
 // Librerías
 import chai from 'chai';
@@ -6,6 +8,7 @@ import server from '../src';
 
 process.env.NODE_ENV = 'test';
 
+// Configuramos chai
 const { assert } = chai;
 const should = chai.should();
 const { expect } = chai;
@@ -17,19 +20,16 @@ let idNota;
 /**
  * TEST: Notas
  */
-// eslint-disable-next-line no-undef
 describe('Batería de tests de Notas', () => {
   let instance;
 
   // antes de comenzar, levantamos el servidor, cambo befereEach por before para que se ejecute una vez en todo el test y no por cada test (prueba).
   // Es costoso arrancar y apagar el servidor
-  // eslint-disable-next-line no-undef
   before(() => {
     instance = server.start();
   });
 
   // Al terminar lo cerramos. Cambio afterEach por after
-  // eslint-disable-next-line no-undef
   after(() => {
     instance.close();
   });
@@ -38,9 +38,7 @@ describe('Batería de tests de Notas', () => {
   /**
    * TEST: GET ALL
    */
-  // eslint-disable-next-line no-undef
   describe('GET: Obtener todas las Notas: ', () => {
-    // eslint-disable-next-line no-undef
     it('Debería obtener todas las notas', (done) => {
       chai.request(instance)
         .get('/api/notas')
@@ -55,14 +53,11 @@ describe('Batería de tests de Notas', () => {
   /**
   * TEST: GET BY ID
   */
-  // eslint-disable-next-line no-undef
   describe('GET: Obtiene una nota por id', () => {
-    // eslint-disable-next-line no-undef
     it('Debería obtener una nota dado su id', (done) => {
       const id = '5eda22b4e921322a1570a7f3';
       chai.request(instance)
         .get(`/api/notas/${id}`)
-        // .send(recipe)
         .end((err, res) => {
           // console.log(res.body);
           res.should.have.status(200);
@@ -82,9 +77,7 @@ describe('Batería de tests de Notas', () => {
   /**
    * TEST POST Añadir Nota
    */
-  // eslint-disable-next-line no-undef
   describe('POST: Añadir una Nota: ', () => {
-    // eslint-disable-next-line no-undef
     it('Debería añadir una Nota', (done) => {
       const nota = {
         titulo: 'Nota de test',
@@ -95,7 +88,6 @@ describe('Batería de tests de Notas', () => {
         .post('/api/notas')
         .send(nota)
         .end((err, res) => {
-          // console.log(res.body);
           expect(res).to.have.status(201);
           res.body.should.be.a('object');
           res.body.should.have.property('titulo');
@@ -113,9 +105,7 @@ describe('Batería de tests de Notas', () => {
   /**
    * TEST PUT Modificar Nota
    */
-  // eslint-disable-next-line no-undef
   describe('PUT: Modificar Nota: ', () => {
-    // eslint-disable-next-line no-undef
     it('Debería modificar una Nota', (done) => {
       const nota = {
         titulo: 'Nota de test mod',
@@ -143,9 +133,7 @@ describe('Batería de tests de Notas', () => {
   /**
    * TEST DELETE Eliminar Nota
    */
-  // eslint-disable-next-line no-undef
   describe('DELETE: Eliminar una Nota: ', () => {
-    // eslint-disable-next-line no-undef
     it('Debería eliminar una nota', (done) => {
       chai.request(instance)
         .delete(`/api/notas/${idNota}`)
@@ -164,5 +152,5 @@ describe('Batería de tests de Notas', () => {
         });
     });
   });
-// Recetas
+// Notas
 });

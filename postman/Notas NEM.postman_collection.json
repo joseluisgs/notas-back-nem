@@ -1,0 +1,132 @@
+{
+	"info": {
+		"_postman_id": "ae52e1a4-661a-407e-8f4c-d601b01aeae3",
+		"name": "Notas NEM",
+		"description": "# Notas-Back-NEM\n\nBackend para una apliación de notas usando NodeJS, Express y MongoDB. como seimpre para uso docente y educativo.\n\n### Acerca de\nEste proyecto tiene como objetivo hacer la parte de backend por capas de una apliación de notas para consumirla con distintos clientes usando las tecnologías de [NodeJS](https://nodejs.org/es/), [Mongo DB](https://www.mongodb.com/es) y [Express](https://expressjs.com/es/) y está basada en el proyecto [NodeMonREST](https://github.com/joseluisgs/NodeMonRest) que podrás consultar para más detalles.\n\n## Autor\n* [José Luis González Sánchez](https://twitter.com/joseluisgonsan) ![Twitter](https://img.shields.io/twitter/follow/joseluisgonsan?style=social)\n\n\n* [GitHub](https://github.com/joseluisgs) ![GitHub](https://img.shields.io/github/followers/joseluisgs?style=social)\n\n![GitHub](https://img.shields.io/github/last-commit/joseluisgs/notas-back-nem)\n\n## Licencia\nEste proyecto esta licenciado bajo licencia __MIT__, si desea saber más, visite el fichero [LICENSE](https://github.com/joseluisgs/notas-back-nem/blob/master/LICENSE) para su uso docente y educativo.\n",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET Todas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/notas",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"notas"
+					]
+				},
+				"description": "Obtiene la lista de todas las notas"
+			},
+			"response": []
+		},
+		{
+			"name": "POST Nueva Nota",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"titulo\": \"Nota de prueba\",\n    \"descripcion\": \"Esto es una prueba\",\n    \"usuarioId\": \"1234\"\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/notas",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"notas"
+					]
+				},
+				"description": "Añade una nueva nota"
+			},
+			"response": []
+		},
+		{
+			"name": "GET Nota por id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/notas/5eda22b4e921322a1570a7f3",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"notas",
+						"5eda22b4e921322a1570a7f3"
+					]
+				},
+				"description": "Obtiene una Nota dado su id"
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Modificar Nota por id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"titulo\": \"Nota de prueba mod\",\n    \"descripcion\": \"Esto es una prueba mod\",\n    \"usuarioId\": \"1234mod\"\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/notas/5eda22b4e921322a1570a7f3",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"notas",
+						"5eda22b4e921322a1570a7f3"
+					]
+				},
+				"description": "Modifica una nota dado su id"
+			},
+			"response": []
+		},
+		{
+			"name": "Elimina una nota por id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/notas/5eda1c94c619f9266f1595d5",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"notas",
+						"5eda1c94c619f9266f1595d5"
+					]
+				},
+				"description": "Elimina una nota por id"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
