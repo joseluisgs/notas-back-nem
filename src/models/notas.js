@@ -44,13 +44,13 @@ NotaSchema.statics.getAll = function getAll(pageOptions, searchOptions) {
     .exec();
 };
 
-// Sobreescribimos el método JSON, esto es porque si hacemos una vista necesitamos id y no _id que es como lo guarda Mongo
-NotaSchema.method('toJSON', function toJSON() {
-  // const { __v, _id, ...object } = this.toObject();
-  const { __v, ...object } = this.toObject(); // Quitamos el __v
-  // object.id = _id;
-  return object;
-});
+// Sobreescribimos el método JSON, y lo podemos cambiar como queramo, por ejemplo quitar _id y poner id
+// NotaSchema.method('toJSON', function toJSON() {
+//   const { __v, _id, ...object } = this.toObject();
+//   object._id = _id; // Para cambiar _id por id
+//   delete object.__v; // Para borrar __v
+//   return object;
+// });
 
 // Creamos un modelo del esquema
 NotaSchema.RecipeModel = () => db.connection().model('Nota', NotaSchema);
