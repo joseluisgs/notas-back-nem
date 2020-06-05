@@ -27,7 +27,8 @@ class Server {
     this.mongoDB = db.connect(); // Por si quiero poner algo para avisar que se conecta .then(() => console.log('⚑ Conectado a Servidor Mongo ✓'));
 
     if (this.mongoDB) {
-      config.setConfig(this.app);
+      // Le añadimos la configuración
+      config(this.app);
       // Enrutamiento que hemos creado
       router(this.app);
 

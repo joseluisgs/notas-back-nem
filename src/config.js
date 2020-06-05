@@ -13,7 +13,7 @@ import fileUpload from 'express-fileupload';
 import env from './env';
 
 // Creamos el módulo de configurar. Es una función que recibe Up
-exports.setConfig = (app) => {
+export default (app) => {
   // Quitamos la cabecera que indica que esta hecho con express, por seguridad, así nod amos pistas
   app.disable('x-powered-by');
 
