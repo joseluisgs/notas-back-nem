@@ -39,5 +39,5 @@ Tareas que podemos ejecutar dentro de nuestra aplicación. Te recomiendo leer el
 ![GitHub](https://img.shields.io/github/last-commit/joseluisgs/notas-back-nem)
 
 ## Licencia
-Este proyecto esta licenciado bajo licencia __MIT__, si desea saber más, visite el fichero [LICENSE](https://github.com/joseluisgs/notas-back-nem/blob/master/LICENSE)
+Este proyecto esta licenciado bajo licencia __MIT__, si desea saber más, visite el fichero [LICENSE](https://github.com/joseluisgs/joseluisgs-notas-back-nem/blob/master/LICENSE)
 
