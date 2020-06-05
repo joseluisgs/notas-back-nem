@@ -5,6 +5,7 @@
 
 // Cargamos librerías, podemos usar la sitaxis EM6: import { Router } from 'express';
 import express from 'express';
+import notasController from '../controllers/notas';
 
 // Controladores
 // const recipesController = require('../controllers/recipes');
@@ -26,7 +27,7 @@ router.get('/:id', notasController.notaById);
 router.post('/', notasController.addNota);
 
 // PUT Modifica un elemento por ID. Solo autenticados y del nivel admin, por eso no se pone nada (es por defecto)
-router.put('/:id', notaController.editNotaById);
+router.put('/:id', notasController.editNotaById);
 
 // DELETE Elimina un elemento por ID. Solo autenticados y del nivel admin podrán, por eso no se pone nada (es por defecto)
 router.delete('/:id', notasController.deleteNotaById);

@@ -10,10 +10,9 @@ const { Schema } = mongoose;
 // Creación del esquema
 const NotaSchema = new Schema(
   {
-    nombre: { type: String, required: [true, 'Nombre obligatorio'] },
+    titulo: { type: String, required: [true, 'Nombre obligatorio'] },
     descripcion: { type: String },
-    difficulty: { type: String, required: true },
-    usuarioID: { type: String, required: true },
+    usuarioId: { type: String, required: true },
     fecha: { type: Date, default: Date.now },
     activo: { type: Boolean, default: true },
     fichero: { type: String },
