@@ -3,13 +3,11 @@
 * Configuración principal de nuestro servidor
 */
 
-
 // Librerías
 import logger from 'morgan';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import fileUpload from 'express-fileupload';
-
 import env from './env';
 
 // Creamos el módulo de configurar. Es una función que recibe Up
@@ -40,7 +38,7 @@ export default (app) => {
       useTempFiles: true, // Uso de ficheros temporales
       tempFileDir: '/tmp/', // Usamos un directorio y ficheros temporal y no memoria para el proceso de subida.
       preserveExtension: true, // dejamos la extensión por defecto
-      debug: env.DEBUG, // Modo de depuración
+      debug: env.NODE_ENV !== 'test' ? env.DEBUG : false, // Modo de depuración (no saco los mensajes en test)
     },
   ));
 };
