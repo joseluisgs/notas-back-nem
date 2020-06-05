@@ -16,43 +16,41 @@ import db from './database';
 class Server {
   // iniciamos el servidor
   constructor() {
+    // Cargamos express como servidor
     this.app = express();
-    this.mongoDB = false;
+    this.mongoDB = null;
   }
 
   // eslint-disable-next-line consistent-return
-  start() {
-    // Cargamos express como servidor
-    // Si no hay conexión a la base de datos no arancamos
-    this.mongoDB = db.connect(); // Por si quiero poner algo para avisar que se conecta .then(() => console.log('⚑ Conectado a Servidor Mongo ✓'));
+  async start() {
+    // Si no hay conexión a la base de datos no arancamos. No utilizo pronesas, si no await y async (promesas edulcodaras)
+    // Por si quiero poner algo para avisar que se conecta .then(() => console.log('⚑ Conectado a Servidor Mongo ✓'));
+    this.mongoDB = await db.connect();
 
-    if (this.mongoDB) {
-      // Le añadimos la configuración
-      config(this.app);
-      // Enrutamiento que hemos creado
-      router(this.app);
+    // Le apliacamos la configuracion
+    config(this.app);
 
-      // Configuracion del modo historia para
-      // web app SPA como Vue en este modo
-      this.app.use(history());
-      this.app.use(express.static(path.join(__dirname, 'public')));
+    // Enrutamiento que hemos creado
+    router(this.app);
 
-      // Nos ponemos a escuchar a un puerto definido en la configuracion
-      this.instancia = this.app.listen(env.PORT, () => {
-        const address = this.instancia.address(); // obtenemos la dirección
-        const host = address.address === '::' ? 'localhost' : address; // dependiendo de la dirección asi configuramos
-        const port = env.PORT; // el puerto
-        const url = `http://${host}:${port}`;
-        this.instancia.url = url;
+    // Configuracion del modo historia para
+    // web app SPA como Vue en este modo
+    this.app.use(history());
+    this.app.use(express.static(path.join(__dirname, 'public')));
 
-        if (process.env.NODE_ENV !== 'test') {
-          console.log(`⚑ Servidor API REST escuchando ✓ -> ${url}`);
-        }
-      });
-      return this.instancia;
-    }
-    console.error('✕ Error al crear el servidor');
-    process.exit();
+    // Nos ponemos a escuchar a un puerto definido en la configuracion
+    this.instancia = this.app.listen(env.PORT, () => {
+      const address = this.instancia.address(); // obtenemos la dirección
+      const host = address.address === '::' ? 'localhost' : address; // dependiendo de la dirección asi configuramos
+      const port = env.PORT; // el puerto
+      const url = `http://${host}:${port}`;
+      this.instancia.url = url;
+
+      if (process.env.NODE_ENV !== 'test') {
+        console.log(`⚑ Servidor API REST escuchando ✓ -> ${url}`);
+      }
+    });
+    return this.instancia; // Devolvemos la instancia del servidor
   }
 
   // Cierra el servidor
