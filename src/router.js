@@ -8,7 +8,6 @@ import notas from './routes/notas';
 
 // exportamos los módulos
 export default (app) => {
-
   // Recurso notas
   app.use('/api/notas', notas);
 
