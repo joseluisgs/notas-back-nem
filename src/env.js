@@ -14,11 +14,6 @@ if (!paramsBD) {
   console.log('✕ Error: Faltán variables de entorno para la ejecución en MongoDB. Por favor revise su fichero .env');
   process.exit(22);
 }
-const paramsAWS = process.env.AWS_ACCESS_KEY && process.env.AWS_SECRET_ACCESS_KEY && process.env.AWS_REGION && process.env.AWS_BUCKET;
-if (!paramsAWS) {
-  console.log('✕ Error: Faltán variables de entorno para la ejecución en Amazon AWS S3. Por favor revise su fichero .env');
-  process.exit(22);
-}
 
 // Es importante que pongamos unos valores por defecto por si no están en el .env o defnidos en el sistema
 const env = {
@@ -43,11 +38,6 @@ const env = {
   FILE_SIZE: process.env.FILE_SIZE || 2,
   FILES_PATH: process.env.FILES_PATH || 'files',
   FILES_URL: process.env.FILES_URL || 'files',
-  STORAGE: `${__dirname}/public/${process.env.FILES_PATH}/`,
-  AWS_ACCESS_KEY: process.env.AWS_ACCESS_KEY,
-  AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
-  AWS_REGION: process.env.AWS_REGION,
-  AWS_BUCKET: process.env.AWS_BUCKET,
 };
 
 export default env;

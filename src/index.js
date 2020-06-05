@@ -1,4 +1,4 @@
-/* eslint-disable class-methods-use-this */
+
 /**
  * Mi servidor
  */
@@ -8,49 +8,49 @@ import history from 'connect-history-api-fallback';
 import env from './env';
 import config from './config';
 import router from './router';
-
-
-let instancia; // instancia del servidor. Singleton
+import db from './database';
 
 /**
  * Clase siguiendo un patrón singleton, es decir, por muchas veces que se llamen, por ejemplo en las pruebas devolvemos el mismo.
  */
 class Server {
   // iniciamos el servidor
+  constructor() {
+    this.app = express();
+    this.mongoOK = false;
+  }
+
   start() {
     // Cargamos express como servidor
-    const app = express();
-    let mongoOK = false;
-
     // Si no hay conexión a la base de datos no arancamos
-    mongoOK = true; // db.connect().then(() => true);// Fin de la promesa
+    this.mongoOK = db.connect().then(() => true);// Fin de la promesa
 
-    if (mongoOK) {
-      config.setConfig(app);
+    if (this.mongoOK) {
+      config.setConfig(this.app);
 
       // Enrutamiento que hemos creado
       // Enrutamiento que hemos creado
-      router.setRouter(app);
+      router.setRouter(this.app);
 
       // Configuracion del modo historia para
       // web app SPA como Vue en este modo
-      app.use(history());
-      app.use(express.static(path.join(__dirname, 'public')));
+      this.app.use(history());
+      this.app.use(express.static(path.join(__dirname, 'public')));
 
 
       // Nos ponemos a escuchar a un puerto definido en la configuracion
-      instancia = app.listen(env.PORT, () => {
-        const address = instancia.address(); // obtenemos la dirección
+      this.instancia = this.app.listen(env.PORT, () => {
+        const address = this.instancia.address(); // obtenemos la dirección
         const host = address.address === '::' ? 'localhost' : address; // dependiendo de la dirección asi configuramos
         const port = env.PORT; // el puerto
         const url = `http://${host}:${port}`;
-        instancia.url = url;
+        this.instancia.url = url;
 
         if (process.env.NODE_ENV !== 'test') {
           console.log(`⚑ Servidor API REST escuchando ✓ -> ${url}`);
         }
       });
-      return instancia;
+      return this.instancia;
     }
     return null;
   }
@@ -58,7 +58,7 @@ class Server {
   // Cierra el servidor
   close() {
     // Desconectamos el socket server
-    instancia.close();
+    this.instancia.close();
     if (process.env.NODE_ENV !== 'test') {
       console.log('▣  Servidor parado');
     }
