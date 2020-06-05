@@ -43,7 +43,4 @@ exports.setConfig = (app) => {
       debug: env.DEBUG, // Modo de depuración
     },
   ));
-
-  // Modo historia en Vue/Nuxt SPA Web App
-  // Middleware para Vue.js router modo history
 };
