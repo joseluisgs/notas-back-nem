@@ -44,12 +44,13 @@ NotaSchema.statics.getAll = function getAll(pageOptions, searchOptions) {
     .exec();
 };
 
-// Sobre escribimos el método JSON, esto es porque si hacemos una vista necesitamos id y no _id que es como lo guarda Mongo
-/* NotaSchema.method('toJSON', function toJSON() {
-  const { __v, _id, ...object } = this.toObject();
-  object.id = _id;
+// Sobreescribimos el método JSON, esto es porque si hacemos una vista necesitamos id y no _id que es como lo guarda Mongo
+NotaSchema.method('toJSON', function toJSON() {
+  // const { __v, _id, ...object } = this.toObject();
+  const { __v, ...object } = this.toObject(); // Quitamos el __v
+  // object.id = _id;
   return object;
-}); */
+});
 
 // Creamos un modelo del esquema
 NotaSchema.RecipeModel = () => db.connection().model('Nota', NotaSchema);

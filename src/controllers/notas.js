@@ -111,8 +111,10 @@ class NotasController {
       fichero: req.body.fichero || null,
     };
     try {
-      const data = await Nota().findOneAndUpdate({ _id: req.params.id }, newNota);
+      let data = await Nota().findOneAndUpdate({ _id: req.params.id }, newNota);
       if (data) {
+        // Devolvemos los datos nuevos
+        data = await Nota().getById(req.params.id);
         res.status(200).json(data);
       } else {
         res.status(404).json({
