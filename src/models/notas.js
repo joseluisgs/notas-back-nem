@@ -10,9 +10,9 @@ const { Schema } = mongoose;
 // Creación del esquema
 const NotaSchema = new Schema(
   {
-    titulo: { type: String, required: [true, 'Nombre obligatorio'] },
+    titulo: { type: String, required: [true, 'Título de la nota obligatorio'] },
     descripcion: { type: String },
-    usuarioId: { type: String, required: true },
+    usuarioId: { type: String },
     fecha: { type: Date, default: Date.now },
     activo: { type: Boolean, default: true },
     fichero: { type: String },
@@ -45,11 +45,11 @@ NotaSchema.statics.getAll = function getAll(pageOptions, searchOptions) {
 };
 
 // Sobre escribimos el método JSON, esto es porque si hacemos una vista necesitamos id y no _id que es como lo guarda Mongo
-NotaSchema.method('toJSON', function toJSON() {
+/* NotaSchema.method('toJSON', function toJSON() {
   const { __v, _id, ...object } = this.toObject();
   object.id = _id;
   return object;
-});
+}); */
 
 // Creamos un modelo del esquema
 NotaSchema.RecipeModel = () => db.connection().model('Nota', NotaSchema);

@@ -76,11 +76,11 @@ class NotasController {
     // Creamos la receta
     const newNota = Nota()({
       titulo: req.body.titulo,
-      descripcion: req.body.descripcion,
-      usuarioId: req.body.usuarioId,
-      fecha: req.body.fecha,
-      activo: req.body.activo,
-      fichero: req.body.fichero,
+      descripcion: req.body.descripcion || '',
+      usuarioId: req.body.usuarioId || '',
+      fecha: req.body.fecha || Date.now(),
+      activo: req.body.activo || true,
+      fichero: req.body.fichero || null,
     });
     try {
       const data = await newNota.save();
@@ -104,11 +104,11 @@ class NotasController {
   async editNotaById(req, res) {
     const newNota = {
       titulo: req.body.titulo,
-      descripcion: req.body.descripcion,
-      usuarioId: req.body.usuarioId,
-      fecha: req.body.fecha,
-      activo: req.body.activo,
-      fichero: req.body.fichero,
+      descripcion: req.body.descripcion || '',
+      usuarioId: req.body.usuarioId || '',
+      fecha: req.body.fecha || Date.now(),
+      activo: req.body.activo || true,
+      fichero: req.body.fichero || null,
     };
     try {
       const data = await Nota().findOneAndUpdate({ _id: req.params.id }, newNota);
