@@ -1,0 +1,118 @@
+# notas-back-nem CI/CD
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: NotasBack-NEM CI/CD
+# Se dispara el evento al hacer push en la rama indicada, en este caso master
+on:
+  push:
+    branches: [master]
+    tags:
+      - v*
+  pull_request:
+    branches: [master]
+
+    # Trabajo a realizar
+jobs:
+
+  # Despliegue Node en GitHub
+  NODE-CI:
+    runs-on: ubuntu-latest
+
+    strategy:
+      # En una matriz indicamos las versiones con las que queremos probar
+      matrix:
+        node-version: [10.x, 12.x]
+        # node-version: [12.x]
+    # Pasos a realizar para cada versión del sistema a probar
+    steps:
+      - uses: actions/checkout@v1
+      - name: Node.js CI GitHub ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      # Instalamos el programa y sus dependencias
+      - name: Instalación de dependencias y entorno
+        run: |
+          npm ci
+      # Pasamos en linter para ver si hay errores de sistáxis o no permitidos con nuestro estilo de programación, corrregimos sus errores automaticamente.
+      - name: Linter y Fix del código
+        run:  |
+          npm run lint-ci
+      # Importante como trabajamos con un .env, todos los valores por defecto debemos recogerlo, lo creamos con los valores del sistema incluidos en GitHub secret dinamicamente
+      # Realizamos los test, como hay algunos que pueden fallar debido a la taruleza del entorbno de pruebas CI por eso me he creado unos test especificos para este entorno
+      - name: Tests del proyecto
+        run: |
+          printenv >> .env
+          npm run test-ci
+        # Cargamos a quí las variables de entorno (GitHub Secrets) que necesitemos su no tomamos otras por defecto en el código en la clase env,
+        # las genera dinamicamente en su .env
+        env:
+          CI: true
+          TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
+          DB_PROTOCOL: ${{ secrets.DB_PROTOCOL }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASS: ${{ secrets.DB_PASS }}
+          DB_URL: ${{ secrets.DB_URL }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+
+      # Construyo la imagen completa
+      - name: Build del proyecto Node.
+        run: |
+          npm run build --if-present
+
+  # Despliegue y Lanzamiento en Heroku
+  HEROKU-CD:
+    runs-on: ubuntu-latest
+    # Necesitamos CI, por lo tanto no lo lanza en paralelo si no cuando acabe
+    needs: NODE-CI
+    steps:
+      - uses: actions/checkout@v1
+      # Nos identificamos en Heroku
+      - name: Heroku login
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: heroku container:login
+      # Construimos y la subimos
+      - name: Build y Push a Heroku
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: heroku container:push -a notas-back-nem web
+      # Hacemos el lanzamiento
+      - name: Lanzamiento en Heroku (Release)
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: heroku container:release -a notas-back-nem web
+
+  # Despliegue en Docker/DockerHub
+  DOCKER-CD:
+    runs-on: ubuntu-latest
+    # Necesitamos CI, por lo tanto no lo lanza en paralelo si no cuando acabe
+    needs: NODE-CI
+    steps:
+      - uses: actions/checkout@v1
+      - name: Docker login
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+      # Esta parte de la versión no es obligatoria, pero a quitamos debemos quitar todas las lineas que hacen referencias
+      # Y quedarnos solo con lo del Latest
+      - name: Versión de imagen
+        id: vars
+        run: |
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+          [ "$VERSION" == "master" ] && VERSION=latest
+          echo ::set-output name=tag::$(echo $VERSION)
+      # Construimos la imagen podríamos hacerlo poniendo directamente docker build -t joseluisgs/notas-back-nem .
+      - name: Build imagen Docker
+        run: docker build -t notas-back-nem .
+      # Etiquetamos la imagen con la versión obtenida. Podríamos haberle puesto nosotros una o la que se nos devuelve a generarlo
+      - name: Etiquetación imagen Docker
+        run: |
+          docker tag notas-back-nem ${{secrets.DOCKERHUB_USERNAME }}/notas-back-nem:${{steps.vars.outputs.tag}}
+          docker tag notas-back-nem ${{secrets.DOCKERHUB_USERNAME }}/notas-back-nem:latest
+      # Subimos la imagen, y nop, no la subimos dos veces, es decir, Docker, detecta que si es la misma solo sube la ultima y ajusta las etiquetas.
+      - name: Push a DockerHub
+        run: |
+          docker push ${{secrets.DOCKERHUB_USERNAME }}/notas-back-nem:${{steps.vars.outputs.tag}}
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/notas-back-nem:latest
