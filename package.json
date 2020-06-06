@@ -37,13 +37,13 @@
     "fix": "eslint --fix 'src/**/*.js'",
     "clean": "rm -rf node_modules && npm run undist",
     "reinstall": "npm run clean && npm run undist && npm install",
-    "build": "npm run undist && babel src -d dist && cp -r 'src/views' 'dist/views' && cp -r 'src/public' 'dist/public' && cp '.env_example' dist/.env",
+    "build": "npm run undist && babel src -d dist && cp -r 'src/public' 'dist/public' && cp '.env_example' dist/.env",
     "rebuild": "npm run clean && npm install && npm run undist && npm run build --prod",
     "undist": "rm -rf dist",
     "prune": "npm prune --production",
     "test": "NODE_ENV=test mocha --exit --require @babel/register --timeout 10000 tests/",
     "test-notas": "NODE_ENV=test mocha --exit --require @babel/register --timeout 10000 tests/notas.spec.js",
-    "test-ci": "npm run test-notas",
+    "test-ci": "npm run test-notasnpm ",
     "lint-ci": "eslint --fix --quiet 'src/**/*.js'"
   },
   "devDependencies": {
