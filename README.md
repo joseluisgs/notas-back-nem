@@ -1,6 +1,6 @@
 # Notas-Back-NEM
 
-Backend para una apliación de notas usando NodeJS, Express y MongoDB. como seimpre para uso docente y educativo.
+Backend para una aplicación de notas usando NodeJS, Express y MongoDB. Como siempre para uso docente y educativo.
 
 [![Licence](https://img.shields.io/github/license/joseluisgs/NodeMonRest)](https://github.com/joseluisgs/NodeMonRest/blob/master/LICENSE)
 [![JS Code](https://img.shields.io/badge/JS%20Code-ES2019-yellow)](https://www.ecma-international.org/ecma-262)
