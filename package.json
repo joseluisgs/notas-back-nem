@@ -43,7 +43,7 @@
     "prune": "npm prune --production",
     "test": "NODE_ENV=test mocha --exit --require @babel/register --timeout 10000 tests/",
     "test-notas": "NODE_ENV=test mocha --exit --require @babel/register --timeout 10000 tests/notas.spec.js",
-    "test-ci": "npm run test-notasnpm ",
+    "test-ci": "npm run test-notas",
     "lint-ci": "eslint --fix --quiet 'src/**/*.js'"
   },
   "devDependencies": {
