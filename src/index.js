@@ -4,7 +4,6 @@
  */
 import express from 'express';
 import path from 'path';
-import history from 'connect-history-api-fallback';
 import env from './env';
 import config from './config';
 import router from './router';
@@ -32,11 +31,6 @@ class Server {
 
     // Enrutamiento que hemos creado
     router(this.app);
-
-    // Configuracion del modo historia para
-    // web app SPA como Vue en este modo
-    this.app.use(history());
-    this.app.use(express.static(path.join(__dirname, 'public')));
 
     // Nos ponemos a escuchar a un puerto definido en la configuracion
     this.instancia = this.app.listen(env.PORT, () => {
