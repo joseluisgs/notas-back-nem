@@ -79,10 +79,11 @@ UserSchema.statics.getAll = function getAll(pageOptions, searchOptions) {
 
 
 // Sobre escribimos el método JSON, esto es porque si hacemos una vista necesitamos id y no _id que es como lo guarda Mongo
+// En nuestro caso no sacamos nunca la constraseña ni la devolvemos.
 UserSchema.method('toJSON', function toJSON() {
-  const { __v, _id, ...object } = this.toObject();
-  object.id = _id;
-  return object;
+  const obj = this.toObject();
+  delete obj.password;
+  return obj;
 });
 
 // Creamos un modelo del esquema
