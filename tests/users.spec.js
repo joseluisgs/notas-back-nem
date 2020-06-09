@@ -15,12 +15,12 @@ const { expect } = chai;
 chai.use(chaiHttp);
 
 // Variables globales para todas las pruebas
-let idNota;
+let idUser;
 
 /**
- * TEST: Notas
+ * TEST: User
  */
-describe('Batería de tests de Notas', () => {
+describe('Batería de tests de User', () => {
   let instance;
 
   // antes de comenzar, levantamos el servidor, cambo befereEach por before para que se ejecute una vez en todo el test y no por cada test (prueba).
@@ -39,11 +39,11 @@ describe('Batería de tests de Notas', () => {
   /**
    * TEST: GET ALL
    */
-  describe('GET: Obtener todas las Notas: ', () => {
+  describe('GET: Obtener todas los usuarios: ', () => {
     // Listamos todas las notas
-    it('Debería obtener todas las notas', (done) => {
+    it('Debería obtener todos los usuarios', (done) => {
       chai.request(instance)
-        .get('/api/notas')
+        .get('/api/users')
         .end((err, res) => {
           // console.log(res.body);
           expect(res).to.have.status(200);
@@ -53,18 +53,19 @@ describe('Batería de tests de Notas', () => {
   });
 
   /**
-   * TEST POST Añadir Nota
+   * TEST POST Añadir un usuario
    */
-  describe('POST: Añadir una Nota: ', () => {
-    // Añade una nota
-    it('Debería añadir una Nota', (done) => {
-      const nota = {
-        titulo: 'Nota de test',
-        descripcion: 'Esto es una prueba de test',
-        usuarioId: '1234',
+  describe('POST: Añadir una Usuario: ', () => {
+    // Añade un usuario
+    it('Debería añadir una Usuario', (done) => {
+      const user = {
+        username: 'prueba',
+        email: 'prueba@prueba.com',
+        password: 'prueba',
+        role: 'USER',
       };
       chai.request(instance)
-        .post('/api/notas')
+        .post('/api/users')
         .send(nota)
         .end((err, res) => {
           expect(res).to.have.status(201);

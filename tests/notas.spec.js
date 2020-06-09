@@ -15,6 +15,7 @@ const { expect } = chai;
 chai.use(chaiHttp);
 
 // Variables globales para todas las pruebas
+const Path = '/api/notas';
 let idNota;
 
 /**
@@ -43,7 +44,7 @@ describe('Batería de tests de Notas', () => {
     // Listamos todas las notas
     it('Debería obtener todas las notas', (done) => {
       chai.request(instance)
-        .get('/api/notas')
+        .get(`${Path}`)
         .end((err, res) => {
           // console.log(res.body);
           expect(res).to.have.status(200);
@@ -64,7 +65,7 @@ describe('Batería de tests de Notas', () => {
         usuarioId: '1234',
       };
       chai.request(instance)
-        .post('/api/notas')
+        .post(`${Path}`)
         .send(nota)
         .end((err, res) => {
           expect(res).to.have.status(201);
@@ -88,7 +89,7 @@ describe('Batería de tests de Notas', () => {
         usuarioId: '1234',
       };
       chai.request(instance)
-        .post('/api/notas')
+        .post(`${Path}`)
         .send(nota)
         .end((err, res) => {
           expect(res).to.have.status(500);
@@ -104,7 +105,7 @@ describe('Batería de tests de Notas', () => {
     // Caso con un id que existe
     it('Debería obtener una nota dado su id', (done) => {
       chai.request(instance)
-        .get(`/api/notas/${idNota}`)
+        .get(`${Path}/${idNota}`)
         .end((err, res) => {
           // console.log(res.body);
           res.should.have.status(200);
@@ -124,7 +125,7 @@ describe('Batería de tests de Notas', () => {
     it('Debería fallar porque no existe una nota con este id', (done) => {
       const id = '5eda22b4e921322a1570a7f9';
       chai.request(instance)
-        .get(`/api/notas/${id}`)
+        .get(`${Path}/${id}`)
         .end((err, res) => {
           // console.log(res.body);
           res.should.have.status(404);
@@ -136,7 +137,7 @@ describe('Batería de tests de Notas', () => {
     it('Debería fallar porque el id es mal formado', (done) => {
       const id = 'patata';
       chai.request(instance)
-        .get(`/api/notas/${id}`)
+        .get(`${Path}/${id}`)
         .end((err, res) => {
           // console.log(res.body);
           res.should.have.status(500);
@@ -158,7 +159,7 @@ describe('Batería de tests de Notas', () => {
         usuarioId: '1234',
       };
       chai.request(instance)
-        .put(`/api/notas/${idNota}`)
+        .put(`${Path}/${idNota}`)
         .send(nota)
         .end((err, res) => {
           expect(res).to.have.status(200);
@@ -183,7 +184,7 @@ describe('Batería de tests de Notas', () => {
         usuarioId: '1234',
       };
       chai.request(instance)
-        .put(`/api/notas/${id}`)
+        .put(`${Path}/${id}`)
         .send(nota)
         .end((err, res) => {
           expect(res).to.have.status(404);
@@ -200,7 +201,7 @@ describe('Batería de tests de Notas', () => {
         usuarioId: '1234',
       };
       chai.request(instance)
-        .put(`/api/notas/${id}`)
+        .put(`${Path}/${id}`)
         .send(nota)
         .end((err, res) => {
           expect(res).to.have.status(500);
@@ -216,7 +217,7 @@ describe('Batería de tests de Notas', () => {
     // Eliminar la nota
     it('Debería eliminar una nota', (done) => {
       chai.request(instance)
-        .delete(`/api/notas/${idNota}`)
+        .delete(`${Path}/${idNota}`)
         .end((err, res) => {
           // console.log(res.body);
           expect(res).to.have.status(200);
@@ -236,7 +237,7 @@ describe('Batería de tests de Notas', () => {
     it('No debería eliminar una Nota, no existe el id', (done) => {
       const id = '5eda22b4e921322a1570a7f9';
       chai.request(instance)
-        .delete(`/api/notas/${idNota}`)
+        .delete(`${Path}/${id}`)
         .end((err, res) => {
           expect(res).to.have.status(404);
           done();
@@ -247,12 +248,12 @@ describe('Batería de tests de Notas', () => {
     it('No debería eliminar una Nota, no existe esta mal formado', (done) => {
       const id = 'patata';
       chai.request(instance)
-        .delete(`/api/notas/${idNota}`)
+        .delete(`${Path}/${id}`)
         .end((err, res) => {
-          expect(res).to.have.status(404);
+          expect(res).to.have.status(500);
           done();
         });
     });
   });
-// Notas
+// Notas !JLgsTe@m$1981@
 });
