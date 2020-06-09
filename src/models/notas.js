@@ -17,7 +17,8 @@ const NotaSchema = new Schema(
     activo: { type: Boolean, default: true },
     fichero: { type: String },
   },
-  // El método estriccto nos dice si aceptamos o no un documento incpleto. Lo ponemos así porque no vamos a meter el id y da un poco de flexibilidad
+  // El método estriccto nos dice si aceptamos o no un documento con algo
+  // que no cumpla esta especificacion. Lo ponemos así porque no vamos a meter el id y da un poco de flexibilidad
   { strict: false },
   // Le añadimos una huella de tiempo
   { timestamps: true },
@@ -53,7 +54,7 @@ NotaSchema.statics.getAll = function getAll(pageOptions, searchOptions) {
 // });
 
 // Creamos un modelo del esquema
-NotaSchema.RecipeModel = () => db.connection().model('Nota', NotaSchema);
-const Nota = NotaSchema.RecipeModel;
+NotaSchema.NotasModel = () => db.connection().model('Nota', NotaSchema);
+const Nota = NotaSchema.NotasModel;
 
 export default Nota;

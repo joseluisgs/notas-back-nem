@@ -5,11 +5,16 @@
 
 // Librerias
 import notas from './routes/notas';
+import users from './routes/users';
 
 // exportamos los módulos
 export default (app) => {
   // Recurso notas
+
   app.use('/api/notas', notas);
+
+  // Recursos usuarios
+  app.use('/users', users);
 
   // Hola API
   // indicamos que para ruta quien la debe resolver

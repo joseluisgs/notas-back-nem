@@ -1,12 +1,12 @@
-/* eslint-disable class-methods-use-this */
 /**
- * CONTROLADOR DE NOTAS
+ * CONTROLADOR DE USUARIOS
+ * Controlador de usuarios para realizar los métodos que le indiquemos a través del enrutador.
  */
+import User from '../models/users';
 
-// Librerias
-import Nota from '../models/notas';
+/* eslint-disable class-methods-use-this */
 
-class NotasController {
+class UsersController {
   /**
    * GET all. Devueleve una lista con todas los elementos del repositorio
    * Códigos de Estado: 200 (OK), 404 No encotrado, 500 no permitido.
@@ -15,20 +15,20 @@ class NotasController {
    * @param {*} res Response
    * @param {*} next Next function
    */
-  async notas(req, res) {
+  async users(req, res) {
     const pageOptions = {
       page: parseInt(req.query.page, 10) || 0,
       limit: parseInt(req.query.limit, 10) || 10,
     };
     // Por si queremos buscar por un campo
     const searchOptions = {
-      search_field: req.query.search_field || 'titulo', // Campo por defecto para la búsqueda
+      search_field: req.query.search_field || 'username', // Campo por defecto para la búsqueda
       search_content: req.query.search_content || '',
       search_order: req.query.search_order || 'asc',
     };
 
     try {
-      const data = await Nota().getAll(pageOptions, searchOptions);
+      const data = await User().getAll(pageOptions, searchOptions);
       res.status(200).json(data);
     } catch (err) {
       res.status(500).json({
@@ -46,15 +46,15 @@ class NotasController {
    * @param {*} res Response
    * @param {*} next Next function
    */
-  async notaById(req, res) {
+  async userById(req, res) {
     try {
-      const data = await Nota().getById(req.params.id);
+      const data = await User().getById(req.params.id);
       if (data) {
         res.status(200).json(data);
       } else {
         res.status(404).json({
           error: 404,
-          mensaje: `No se ha encontrado ninguna nota con ese ID: ${req.params.id}`,
+          mensaje: `No se ha encontrado un usuario con ese ID: ${req.params.id}`,
         });
       }
     } catch (err) {
@@ -73,18 +73,19 @@ class NotasController {
    * @param {*} res Response
    * @param {*} next Next function
    */
-  async addNota(req, res) {
-    // Creamos la receta
-    const newNota = Nota()({
-      titulo: req.body.titulo,
-      descripcion: req.body.descripcion || '',
-      usuarioId: req.body.usuarioId || '',
+  async addUser(req, res) {
+    // Creamos el usuario
+    const newUser = User()({
+      username: req.body.username,
+      email: req.body.email,
+      password: req.body.password,
+      roles: req.body.roles || 'USER',
+      avatar: req.body.avatar || null,
       fecha: req.body.fecha || Date.now(),
       activo: req.body.activo || true,
-      fichero: req.body.fichero || null,
     });
     try {
-      const data = await newNota.save();
+      const data = await newUser.save();
       res.status(201).json(data);
     } catch (err) {
       res.status(500).json({
@@ -102,26 +103,25 @@ class NotasController {
    * @param {*} res Response
    * @param {*} next Next function
    */
-  async editNotaById(req, res) {
-    const newNota = {
-      titulo: req.body.titulo,
-      descripcion: req.body.descripcion || '',
-      usuarioId: req.body.usuarioId || '',
+  async editUserById(req, res) {
+    const newUser = {
+      username: req.body.username,
+      email: req.body.email,
+      password: req.body.password,
+      roles: req.body.roles || 'USER',
+      avatar: req.body.avatar || null,
       fecha: req.body.fecha || Date.now(),
       activo: req.body.activo || true,
-      fichero: req.body.fichero || null,
     };
     try {
-      const data = await Nota().findOneAndUpdate({ _id: req.params.id }, newNota, { new: true });
-      // {new:true} nos devuelve el usuario actualizado por lo que no hace falta buscarlo como se hace despues
+      const data = await User().findOneAndUpdate({ _id: req.params.id }, newUser, { new: true, runValidators: true });
+      // Agregaremos otra opción a nuestra actualización para que corra las validaciones (para que no se puedan ingresar roles inválidos)
       if (data) {
-        // Devolvemos los datos nuevos
-        // data = await Nota().getById(req.params.id);
         res.status(200).json(data);
       } else {
         res.status(404).json({
           error: 404,
-          mensaje: `No se ha encontrado una nota con ese ID: ${req.params.id}`,
+          mensaje: `No se ha encontrado un usuario con ese ID: ${req.params.id}`,
         });
       }
     } catch (err) {
@@ -140,9 +140,9 @@ class NotasController {
    * @param {*} res Response
    * @param {*} next Next function
    */
-  async deleteNotaById(req, res) {
+  async deleteUserById(req, res) {
     try {
-      const data = await Nota().findByIdAndDelete({ _id: req.params.id });
+      const data = await User().findByIdAndDelete({ _id: req.params.id });
       if (data) {
         res.status(200).json(data);
       } else {
@@ -161,4 +161,4 @@ class NotasController {
 }
 
 // Exportamos el módulo
-export default new NotasController();
+export default new UsersController();

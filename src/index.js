@@ -8,6 +8,8 @@ import config from './config';
 import router from './router';
 import db from './database';
 
+const bcrypt = require('bcryptjs');
+
 /**
  * Clase siguiendo un patrón singleton, es decir, por muchas veces que se llamen, por ejemplo en las pruebas devolvemos el mismo.
  */
