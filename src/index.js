@@ -3,7 +3,6 @@
  * Mi servidor
  */
 import express from 'express';
-import path from 'path';
 import env from './env';
 import config from './config';
 import router from './router';
