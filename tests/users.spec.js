@@ -61,7 +61,7 @@ describe('Batería de tests de User', () => {
     it('Debería añadir una Usuario', (done) => {
       const user = {
         username: 'pruebatest',
-        email: 'pruebatest@prueba.com',
+        email: 'pruebatest@pruebatest.com',
         password: 'prueba',
         role: 'USER',
       };
@@ -150,7 +150,7 @@ describe('Batería de tests de User', () => {
     it('No Debería añadir un Usuario usuario repetidos', (done) => {
       const user = {
         username: 'pruebatest',
-        email: 'pruebatest@prueba.com',
+        email: 'pruebatest@pruebatest.com',
         password: 'prueba',
         role: 'USER',
       };
@@ -167,7 +167,7 @@ describe('Batería de tests de User', () => {
     it('No Debería añadir un Usuario email repetidos', (done) => {
       const user = {
         username: 'pruebatest',
-        email: 'pruebatest@prueba.com',
+        email: 'pruebatest@pruebatest.com',
         password: 'prueba',
         role: 'USER',
       };
@@ -233,7 +233,7 @@ describe('Batería de tests de User', () => {
    */
   describe('PUT: Modificar Usuario: ', () => {
     // Actualiza un usuario
-    it('Debería modificar unUsuario', (done) => {
+    it('Debería modificar un Usuario', (done) => {
       const user = {
         password: 'pruebatest',
         role: 'USER',

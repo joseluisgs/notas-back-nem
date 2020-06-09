@@ -39,7 +39,7 @@ const UserSchema = new Schema(
   { timestamps: true },
 );
 
-// Validadores
+// Validadores de propiedades.
 UserSchema.plugin(uniqueValidator, { message: 'Error, esperaba {PATH} único.' });
 
 // Métodos estaticos que nos servirán para métodos rápidos

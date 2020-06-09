@@ -2,7 +2,10 @@
  * CONTROLADOR DE USUARIOS
  * Controlador de usuarios para realizar los métodos que le indiquemos a través del enrutador.
  */
+import bcrypt from 'bcryptjs';
 import User from '../models/users';
+import env from '../env';
+
 
 /* eslint-disable class-methods-use-this */
 
@@ -78,7 +81,7 @@ class UsersController {
     const newUser = User()({
       username: req.body.username,
       email: req.body.email,
-      password: req.body.password,
+      password: (req.body.password ? bcrypt.hashSync(req.body.password, env.BC_SALT) : ''),
       role: req.body.role || 'USER',
       avatar: req.body.avatar || null,
       fecha: req.body.fecha || Date.now(),
@@ -104,22 +107,22 @@ class UsersController {
    * @param {*} next Next function
    */
   async editUserById(req, res) {
-    const newUser = {
-      // No dejo cambiar el usuario y el mail, si quisiera hacerlo debería hacer métodos propios
-      // El motivo es por segurdiad de campos únicos y el validador.
-      // La otra opción es quitar el validador y comporobar a mano que los roles son los que son
-      // username: req.body.username,
-      // email: req.body.email,
-      password: req.body.password,
-      role: req.body.role || 'USER',
-      avatar: req.body.avatar || null,
-      fecha: req.body.fecha || Date.now(),
-      activo: req.body.activo || true,
-    };
     try {
-      const data = await User().findOneAndUpdate({ _id: req.params.id }, newUser, { new: true, runValidators: true });
-      // Agregaremos otra opción a nuestra actualización para que corra las validaciones (para que no se puedan ingresar roles inválidos)
-      if (data) {
+      // Buscamos el antiguo
+      const oldUser = await User().getById(req.params.id);
+      if (oldUser) {
+        const newUser = {
+          username: req.body.username || oldUser.username,
+          email: req.body.email || oldUser.password,
+          password: (req.body.password ? bcrypt.hashSync(req.body.password, env.BC_SALT) : oldUser.password),
+          role: req.body.role || oldUser.role,
+          avatar: req.body.avatar || oldUser.avatar,
+          fecha: req.body.fecha || oldUser.fecha,
+          activo: req.body.activo || oldUser.activo,
+        };
+        const data = await User().findOneAndUpdate({ _id: req.params.id }, newUser, { new: true, runValidators: true, context: 'query' });
+        // Agregaremos otra opción a nuestra actualización para que corra las validaciones (para que no se puedan ingresar roles inválidos)
+        // al decirle query no comprueba todo
         res.status(200).json(data);
       } else {
         res.status(404).json({

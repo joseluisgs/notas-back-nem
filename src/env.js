@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 /**
  * CONFIGURACIÓN DE LOS DATOS Y VARIABLES DE ENTORno
  * Pueden llegar de un fichero .env, o desde el propio entorno de desarrollo
@@ -26,7 +27,7 @@ const env = {
   TOKEN_SECRET: process.env.TOKEN_SECRET || 'Este_Caballo_Viene_de_Boanzarrrrr_/_Lorem_Fistrum_Pecador_Te_Va_A_Haser_Pupitaa_Diodenaaalll_2020',
   TOKEN_LIFE: process.env.TOKEN_LIFE || 20,
   TOKEN_REFRESH: process.env.TOKEN_REFRESH || 40,
-  BC_SALT: process.env.BC_SALT || 10,
+  BC_SALT: parseInt(process.env.BC_SALT) || 10,
   DB_DEBUG: process.env.DB_DEBUG || '', // puede ser true
   DB_POOOLSIZE: process.env.DB_POOLSIZE || 200,
   DB_PROTOCOL: process.env.DB_PROTOCOL,
