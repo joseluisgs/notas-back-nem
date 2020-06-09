@@ -7,8 +7,8 @@
  * Esquema de Usuarios
  */
 import mongoose from 'mongoose';
-import db from '../database';
 import uniqueValidator from 'mongoose-unique-validator';
+import db from '../database';
 
 const { Schema } = mongoose;
 

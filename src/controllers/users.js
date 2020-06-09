@@ -79,7 +79,7 @@ class UsersController {
       username: req.body.username,
       email: req.body.email,
       password: req.body.password,
-      roles: req.body.roles || 'USER',
+      role: req.body.role || 'USER',
       avatar: req.body.avatar || null,
       fecha: req.body.fecha || Date.now(),
       activo: req.body.activo || true,
@@ -105,10 +105,13 @@ class UsersController {
    */
   async editUserById(req, res) {
     const newUser = {
-      username: req.body.username,
-      email: req.body.email,
+      // No dejo cambiar el usuario y el mail, si quisiera hacerlo debería hacer métodos propios
+      // El motivo es por segurdiad de campos únicos y el validador.
+      // La otra opción es quitar el validador y comporobar a mano que los roles son los que son
+      // username: req.body.username,
+      // email: req.body.email,
       password: req.body.password,
-      roles: req.body.roles || 'USER',
+      role: req.body.role || 'USER',
       avatar: req.body.avatar || null,
       fecha: req.body.fecha || Date.now(),
       activo: req.body.activo || true,
