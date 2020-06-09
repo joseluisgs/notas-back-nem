@@ -53,55 +53,6 @@ describe('Batería de tests de Notas', () => {
   });
 
   /**
-  * TEST: GET BY ID
-  */
-  describe('GET: Obtiene una nota por id', () => {
-    // Caso con un id que existe
-    it('Debería obtener una nota dado su id', (done) => {
-      const id = '5eda22b4e921322a1570a7f3';
-      chai.request(instance)
-        .get(`/api/notas/${id}`)
-        .end((err, res) => {
-          // console.log(res.body);
-          res.should.have.status(200);
-          res.body.should.be.a('object');
-          res.body.should.have.property('titulo');
-          res.body.should.have.property('descripcion');
-          res.body.should.have.property('activo');
-          res.body.should.have.property('usuarioId');
-          res.body.should.have.property('fecha');
-          res.body.should.have.property('fichero');
-          res.body.should.have.property('_id').eql(id);
-          done();
-        });
-    });
-
-    // Caso con un id que no existe
-    it('Debería fallar porque no existe una nota con este id', (done) => {
-      const id = '5eda22b4e921322a1570a7f9';
-      chai.request(instance)
-        .get(`/api/notas/${id}`)
-        .end((err, res) => {
-          // console.log(res.body);
-          res.should.have.status(404);
-          done();
-        });
-    });
-
-    // Caso con id mal formado
-    it('Debería fallar porque el id es mal formado', (done) => {
-      const id = 'patata';
-      chai.request(instance)
-        .get(`/api/notas/${id}`)
-        .end((err, res) => {
-          // console.log(res.body);
-          res.should.have.status(500);
-          done();
-        });
-    });
-  });
-
-  /**
    * TEST POST Añadir Nota
    */
   describe('POST: Añadir una Nota: ', () => {
@@ -145,6 +96,55 @@ describe('Batería de tests de Notas', () => {
         });
     });
   });
+
+  /**
+  * TEST: GET BY ID
+  */
+  describe('GET: Obtiene una nota por id', () => {
+    // Caso con un id que existe
+    it('Debería obtener una nota dado su id', (done) => {
+      chai.request(instance)
+        .get(`/api/notas/${idNota}`)
+        .end((err, res) => {
+          // console.log(res.body);
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('titulo');
+          res.body.should.have.property('descripcion');
+          res.body.should.have.property('activo');
+          res.body.should.have.property('usuarioId');
+          res.body.should.have.property('fecha');
+          res.body.should.have.property('fichero');
+          res.body.should.have.property('_id').eql(idNota);
+          done();
+        });
+    });
+
+    // Caso con un id que no existe
+    it('Debería fallar porque no existe una nota con este id', (done) => {
+      const id = '5eda22b4e921322a1570a7f9';
+      chai.request(instance)
+        .get(`/api/notas/${id}`)
+        .end((err, res) => {
+          // console.log(res.body);
+          res.should.have.status(404);
+          done();
+        });
+    });
+
+    // Caso con id mal formado
+    it('Debería fallar porque el id es mal formado', (done) => {
+      const id = 'patata';
+      chai.request(instance)
+        .get(`/api/notas/${id}`)
+        .end((err, res) => {
+          // console.log(res.body);
+          res.should.have.status(500);
+          done();
+        });
+    });
+  });
+
 
   /**
    * TEST PUT Modificar Nota
