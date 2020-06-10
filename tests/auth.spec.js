@@ -104,5 +104,15 @@ describe('Batería de tests de Auth', () => {
         });
     });
   });
+  // Token incorrecto
+  it('No debería salir de la sesión, token incorrecto', (done) => {
+    chai.request(instance)
+      .post(`${Path}/logout`)
+      .set({ Authorization: 'Bearer 123456789' })
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        done();
+      });
+  });
   // Auth
 });

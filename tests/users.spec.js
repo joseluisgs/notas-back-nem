@@ -17,6 +17,7 @@ chai.use(chaiHttp);
 // Variables globales para todas las pruebas
 const Path = '/api/users';
 let idUser;
+let token;
 
 /**
  * TEST: User
@@ -36,6 +37,29 @@ describe('Batería de tests de User', () => {
     instance.close();
   });
 
+  /**
+   * TEST POST Login como Admin
+   */
+  describe('POST: Identificar como admin: ', () => {
+    it('Debería autenticar a admin', (done) => {
+      const user = {
+        email: 'admin@admin.com',
+        password: 'admin',
+      };
+      chai.request(instance)
+        .post('/api/auth/login')
+        .send(user)
+        .end((err, res) => {
+          // console.log(res.body);
+          expect(res).to.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('user');
+          res.body.should.have.property('token');
+          token = res.body.token;
+          done();
+        });
+    });
+  });
 
   /**
    * TEST: GET ALL
@@ -45,6 +69,7 @@ describe('Batería de tests de User', () => {
     it('Debería obtener todos los usuarios', (done) => {
       chai.request(instance)
         .get(`${Path}`)
+        .set({ Authorization: `Bearer ${token}` })
         .end((err, res) => {
           // console.log(res.body);
           expect(res).to.have.status(200);
@@ -67,6 +92,7 @@ describe('Batería de tests de User', () => {
       };
       chai.request(instance)
         .post(`${Path}`)
+        .set({ Authorization: `Bearer ${token}` })
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(201);
@@ -90,6 +116,7 @@ describe('Batería de tests de User', () => {
       };
       chai.request(instance)
         .post(`${Path}`)
+        .set({ Authorization: `Bearer ${token}` })
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(500);
@@ -106,6 +133,7 @@ describe('Batería de tests de User', () => {
       };
       chai.request(instance)
         .post(`${Path}`)
+        .set({ Authorization: `Bearer ${token}` })
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(500);
@@ -122,6 +150,7 @@ describe('Batería de tests de User', () => {
       };
       chai.request(instance)
         .post(`${Path}`)
+        .set({ Authorization: `Bearer ${token}` })
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(500);
@@ -139,6 +168,7 @@ describe('Batería de tests de User', () => {
       };
       chai.request(instance)
         .post(`${Path}`)
+        .set({ Authorization: `Bearer ${token}` })
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(500);
@@ -156,6 +186,7 @@ describe('Batería de tests de User', () => {
       };
       chai.request(instance)
         .post(`${Path}`)
+        .set({ Authorization: `Bearer ${token}` })
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(500);
@@ -173,6 +204,7 @@ describe('Batería de tests de User', () => {
       };
       chai.request(instance)
         .post(`${Path}`)
+        .set({ Authorization: `Bearer ${token}` })
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(500);
@@ -189,6 +221,7 @@ describe('Batería de tests de User', () => {
     it('Debería obtener un usuario dado su id', (done) => {
       chai.request(instance)
         .get(`${Path}/${idUser}`)
+        .set({ Authorization: `Bearer ${token}` })
         .end((err, res) => {
           // console.log(res.body);
           res.should.have.status(200);
@@ -208,6 +241,7 @@ describe('Batería de tests de User', () => {
       const id = '5eda22b4e921322a1570a7f9';
       chai.request(instance)
         .get(`${Path}/${id}`)
+        .set({ Authorization: `Bearer ${token}` })
         .end((err, res) => {
           // console.log(res.body);
           res.should.have.status(404);
@@ -220,6 +254,7 @@ describe('Batería de tests de User', () => {
       const id = 'patata';
       chai.request(instance)
         .get(`${Path}/${id}`)
+        .set({ Authorization: `Bearer ${token}` })
         .end((err, res) => {
           // console.log(res.body);
           res.should.have.status(500);
@@ -240,6 +275,7 @@ describe('Batería de tests de User', () => {
       };
       chai.request(instance)
         .put(`${Path}/${idUser}`)
+        .set({ Authorization: `Bearer ${token}` })
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(200);
@@ -263,6 +299,7 @@ describe('Batería de tests de User', () => {
       };
       chai.request(instance)
         .put(`${Path}/${id}`)
+        .set({ Authorization: `Bearer ${token}` })
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(404);
@@ -279,6 +316,7 @@ describe('Batería de tests de User', () => {
       };
       chai.request(instance)
         .put(`${Path}/${id}`)
+        .set({ Authorization: `Bearer ${token}` })
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(500);
@@ -295,6 +333,7 @@ describe('Batería de tests de User', () => {
       };
       chai.request(instance)
         .put(`${Path}/${idUser}`)
+        .set({ Authorization: `Bearer ${token}` })
         .send(user)
         .end((err, res) => {
           expect(res).to.have.status(500);
@@ -310,6 +349,7 @@ describe('Batería de tests de User', () => {
     it('Debería eliminar una Usuario', (done) => {
       chai.request(instance)
         .delete(`${Path}/${idUser}`)
+        .set({ Authorization: `Bearer ${token}` })
         .end((err, res) => {
           // console.log(res.body);
           expect(res).to.have.status(200);
@@ -329,6 +369,7 @@ describe('Batería de tests de User', () => {
       const id = '5eda22b4e921322a1570a7f9';
       chai.request(instance)
         .delete(`${Path}/${id}`)
+        .set({ Authorization: `Bearer ${token}` })
         .end((err, res) => {
           expect(res).to.have.status(404);
           done();
@@ -340,8 +381,24 @@ describe('Batería de tests de User', () => {
       const id = 'patata';
       chai.request(instance)
         .delete(`${Path}/${id}`)
+        .set({ Authorization: `Bearer ${token}` })
         .end((err, res) => {
           expect(res).to.have.status(500);
+          done();
+        });
+    });
+  });
+  /**
+   * TEST POST, Cierra la sesión del usuario
+   * Debe ser el último test
+   */
+  describe('POST: Salir de sesión usuario: ', () => {
+    it('Debería salir de la sesión', (done) => {
+      chai.request(instance)
+        .post('/api/auth/logout')
+        .set({ Authorization: `Bearer ${token}` })
+        .end((err, res) => {
+          expect(res).to.have.status(204);
           done();
         });
     });
