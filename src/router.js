@@ -6,13 +6,16 @@
 // Librerias
 import notas from './routes/notas';
 import users from './routes/users';
+import auth from './routes/auth';
 
 const Path = '/api';
 
 // exportamos los módulos
 export default (app) => {
-  // Recurso notas
+  // rutas de autenticación y autorización.
+  app.use(`${Path}/auth`, auth);
 
+  // Recurso notas
   app.use(`${Path}/notas`, notas);
 
   // Recursos usuarios
