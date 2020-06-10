@@ -53,7 +53,7 @@ class AuthController {
         exp: Math.floor(Date.now() / 1000) + (60 * env.TOKEN_LIFE),
       };
       const token = jwt.encode(payload, env.TOKEN_SECRET);
-      // Devolvemos el token y el usuario, aunque el usuario también va en el token. 
+      // Devolvemos el token y el usuario, aunque el usuario también va en el token.
       return res
         .status(200)
         .send({
@@ -81,13 +81,10 @@ class AuthController {
     // Le pasamos el refress por body y el usuario
     try {
       // const data = await User().getByUserName(req.user.username);
-      // debe coicidir el nombre del usuario con los datos de autorización
-      if (req.body.username === req.user.username) {
+      if (req.user) {
         res.status(204)
           .send(
             {
-              error: '204',
-              message: 'Logout',
               user: req.user,
             },
           );

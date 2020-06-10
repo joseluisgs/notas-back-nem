@@ -4,6 +4,7 @@
 
 import express from 'express';
 import authController from '../controllers/auth';
+import { auth } from '../middlewares/auth';
 
 // Cargamos el enrutador
 const router = express.Router();
@@ -12,7 +13,7 @@ const router = express.Router();
 router.post('/login', authController.login);
 
 // Ruta POST. Logout. solo autenticados
-router.post('/logout', authController.logout);
+router.post('/logout', auth, authController.logout);
 
 // Exprotamos el módulo
 export default router;
