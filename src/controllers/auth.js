@@ -108,6 +108,36 @@ class AuthController {
         );
     }
   }
+
+  /**
+   * POST. Añade un elemento al repositorio
+   * Códigos de estado: 201, añadido el recurso. 400 Bad request. 500 no permitido
+   * Asincrono para no usar promesas asyn/await
+   * @param {*} req Request
+   * @param {*} res Response
+   * @param {*} next Next function
+   */
+  async registerMe(req, res) {
+    // Creamos el usuario
+    const newUser = User()({
+      username: req.body.username,
+      email: req.body.email,
+      password: (req.body.password ? bcrypt.hashSync(req.body.password, env.BC_SALT) : ''),
+      role: req.body.role || 'USER',
+      avatar: req.body.avatar || null,
+      fecha: req.body.fecha || Date.now(),
+      activo: req.body.activo || true,
+    });
+    try {
+      const data = await newUser.save();
+      res.status(201).json(data);
+    } catch (err) {
+      res.status(500).json({
+        error: 500,
+        mensaje: err,
+      });
+    }
+  }
 }
 
 // Exportamos el módulo
