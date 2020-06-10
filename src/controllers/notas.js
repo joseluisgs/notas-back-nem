@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable class-methods-use-this */
 /**
  * CONTROLADOR DE NOTAS
@@ -20,10 +21,11 @@ class NotasController {
       page: parseInt(req.query.page, 10) || 0,
       limit: parseInt(req.query.limit, 10) || 10,
     };
-    // Por si queremos buscar por un campo
+    // Por si queremos buscar por un campo, este caso nosotros vamos a fiultrar las notas por id de usuario y no lo vamos a dejar al azar
+    // en vez de psarle estos parámetros por la barra de direcciones.
     const searchOptions = {
-      search_field: req.query.search_field || 'titulo', // Campo por defecto para la búsqueda
-      search_content: req.query.search_content || '',
+      search_field: 'usuarioId', // req.query.search_field || 'titulo', // Campo por defecto para la búsqueda
+      search_content: req.user._id, // req.query.search_content || '',
       search_order: req.query.search_order || 'asc',
     };
 
@@ -78,7 +80,7 @@ class NotasController {
     const newNota = Nota()({
       titulo: req.body.titulo,
       descripcion: req.body.descripcion || '',
-      usuarioId: req.body.usuarioId || '',
+      usuarioId: req.user._id, // La nota es del usuario identificado
       fecha: req.body.fecha || Date.now(),
       activo: req.body.activo || true,
       fichero: req.body.fichero || null,
@@ -106,7 +108,7 @@ class NotasController {
     const newNota = {
       titulo: req.body.titulo,
       descripcion: req.body.descripcion || '',
-      usuarioId: req.body.usuarioId || '',
+      usuarioId: req.user._id, // La nota es del usuario identificado
       fecha: req.body.fecha || Date.now(),
       activo: req.body.activo || true,
       fichero: req.body.fichero || null,
