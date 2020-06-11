@@ -44,7 +44,8 @@ class AuthController {
             },
           );
       }
-      console.log(user.username);
+      // Borramos el password para que no vaya en el objeto que transmitimos
+      delete user.password;
       // Devolvemos lo que tengamos que devolver.
       // Costruimos el token de acceso
       const payload = {
