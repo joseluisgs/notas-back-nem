@@ -35,7 +35,8 @@ class NotasController {
     } catch (err) {
       res.status(500).json({
         error: 500,
-        mensaje: err,
+        mensaje: 'No se ha pidido obtener la lista de notas',
+        detalles: err,
       });
     }
   }
@@ -62,7 +63,8 @@ class NotasController {
     } catch (err) {
       res.status(500).json({
         error: 500,
-        mensaje: err,
+        mensaje: 'No se ha podido obtener la nota',
+        detalles: err,
       });
     }
   }
@@ -91,7 +93,8 @@ class NotasController {
     } catch (err) {
       res.status(500).json({
         error: 500,
-        mensaje: err,
+        mensaje: 'No se ha podido añadir la nota',
+        detalles: err,
       });
     }
   }
@@ -129,7 +132,8 @@ class NotasController {
     } catch (err) {
       res.status(500).json({
         error: 500,
-        mensaje: err,
+        mensaje: 'No se ha podido editar la nota',
+        detalles: err,
       });
     }
   }
@@ -156,7 +160,8 @@ class NotasController {
     } catch (err) {
       res.status(500).json({
         error: 500,
-        mensaje: err,
+        mensaje: 'No se ha podido eliminar la nota',
+        detalles: err,
       });
     }
   }

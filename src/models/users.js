@@ -15,7 +15,7 @@ const { Schema } = mongoose;
 // Roles
 const roles = {
   values: ['ADMIN', 'USER'],
-  message: '{VALUE} no es un rol válido',
+  mensaje: '{VALUE} no es un rol válido',
 };
 
 // Creación del esquema
@@ -40,7 +40,7 @@ const UserSchema = new Schema(
 );
 
 // Validadores de propiedades.
-UserSchema.plugin(uniqueValidator, { message: 'Error, esperaba {PATH} único.' });
+UserSchema.plugin(uniqueValidator, { mensaje: 'Error, esperaba {PATH} único.' });
 
 // Métodos estaticos que nos servirán para métodos rápidos
 

@@ -40,7 +40,7 @@ class AuthController {
           .send(
             {
               error: '401',
-              message: 'Usuario o password incorrectos',
+              mensaje: 'Usuario o password incorrectos',
             },
           );
       }
@@ -65,7 +65,8 @@ class AuthController {
         .send(
           {
             error: '500',
-            message: 'Error: Problemas al identificar el usuario. No ha indicado su email o su contraseña',
+            mensaje: 'Error: Problemas al identificar el usuario. No ha indicado su email o su contraseña',
+            detalles: err,
           },
         );
     }
@@ -94,7 +95,7 @@ class AuthController {
           .send(
             {
               error: '401',
-              message: 'Usuario no identificado o sesión terminada',
+              mensaje: 'Usuario no identificado o sesión terminada',
             },
           );
       }
@@ -103,7 +104,8 @@ class AuthController {
         .send(
           {
             error: '500',
-            message: 'Error: Problemas al identificar el usuario, no ha proporcionado el nombre de usuario',
+            mensaje: 'Problemas al identificar el usuario, no ha proporcionado el nombre de usuario',
+            detalles: err,
           },
         );
     }
@@ -134,7 +136,8 @@ class AuthController {
     } catch (err) {
       res.status(500).json({
         error: 500,
-        mensaje: err,
+        mensaje: 'Ya existe un usuario con este username o email',
+        detalles: err,
       });
     }
   }

@@ -19,7 +19,7 @@ const auth = (req, res, next) => {
   if (!req.headers.authorization) {
     return res.status(401).send({
       error: '401',
-      message: 'No Autenticado',
+      mensaje: 'No Autenticado',
     });
   }
 
@@ -35,7 +35,7 @@ const auth = (req, res, next) => {
   } catch (e) {
     return res.status(401).send({
       error: '401',
-      message: 'La sesión ha caducado',
+      mensaje: 'La sesión ha caducado',
     });
   }
 };
@@ -55,7 +55,7 @@ const grant = (role = ['USER']) => (req, res, next) => {
     // Si no tiene el rol...
     return res.status(403).send({
       error: '403',
-      message: 'No Autorizado',
+      mensaje: 'No Autorizado',
     });
   }
 };

@@ -36,7 +36,8 @@ class UsersController {
     } catch (err) {
       res.status(500).json({
         error: 500,
-        mensaje: err,
+        mensaje: 'No se ha podiod obtener la lista de usuarios',
+        detalles: err,
       });
     }
   }
@@ -63,7 +64,8 @@ class UsersController {
     } catch (err) {
       res.status(500).json({
         error: 500,
-        mensaje: err,
+        mensaje: 'No se ha podido obtener los detalles del usuario',
+        detalles: err,
       });
     }
   }
@@ -93,7 +95,8 @@ class UsersController {
     } catch (err) {
       res.status(500).json({
         error: 500,
-        mensaje: err,
+        mensaje: 'No se ha podido añadir este usuario',
+        detalles: err,
       });
     }
   }
@@ -133,7 +136,8 @@ class UsersController {
     } catch (err) {
       res.status(500).json({
         error: 500,
-        mensaje: err,
+        mensaje: 'No se ha podido añadir este usuario',
+        detalles: err,
       });
     }
   }
@@ -160,7 +164,8 @@ class UsersController {
     } catch (err) {
       res.status(500).json({
         error: 500,
-        mensaje: err,
+        mensaje: 'no se ha podido eliminar este usuario',
+        detalles: err,
       });
     }
   }
