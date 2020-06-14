@@ -7,6 +7,7 @@ import env from './env';
 import config from './config';
 import router from './router';
 import db from './database';
+import firebase from './firebase';
 
 /**
  * Clase siguiendo un patrón singleton, es decir, por muchas veces que se llamen, por ejemplo en las pruebas devolvemos el mismo.
@@ -17,6 +18,7 @@ class Server {
     // Cargamos express como servidor
     this.app = express();
     this.mongoDB = null;
+    this.firebase = null;
   }
 
   // eslint-disable-next-line consistent-return
@@ -24,6 +26,9 @@ class Server {
     // Si no hay conexión a la base de datos no arancamos. No utilizo pronesas, si no await y async (promesas edulcodaras)
     // Por si quiero poner algo para avisar que se conecta .then(() => console.log('⚑ Conectado a Servidor Mongo ✓'));
     this.mongoDB = await db.connect();
+
+    // Iniciamos firebase
+    this.firebase = await firebase.start();
 
     // Le apliacamos la configuracion
     config(this.app);
