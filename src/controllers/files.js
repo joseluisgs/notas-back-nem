@@ -30,8 +30,16 @@ class FilesController {
         const fi = {
           id: fichero.id,
           name: fichero.name,
-          url: (`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(fichero.name)}?alt=media&token=${fichero.metadata.metadata.firebaseStorageDownloadTokens}`),
-          metadata: fichero.metadata,
+          // metadata: fichero.metadata,
+          // url:  url: (`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(fichero.name)}?alt=media&token=${fichero.metadata.metadata.firebaseStorageDownloadTokens}`),
+          // Serían los metadato del fichero segun Google Firebase
+          // metadata: fichero.metadata,
+          // Ponemos los metadatos que queremos para no volcar los de google
+          contentType: fichero.metadata.icontentType,
+          size: fichero.metadata.size,
+          md5Hash: fichero.metadata.md5Hash,
+          timeCreated: fichero.metadata.timeCreated,
+          updated: fichero.metadata.updated,
         };
         lista.push(fi);
       }
@@ -56,10 +64,11 @@ class FilesController {
   async fileById(req, res) {
     try {
       const bucket = env.FIREBASE_BUCKET;
-      const file = await bucket.file(req.params.id).getMetadata();
+      // El motivo de hacer esto es mapear las peticion y no sepan que están en Firebase.
+      // Podíamos quitar la url poner esta y eliminar cualquier rastro de firebase
+      const file = await bucket.file(req.params.id).download();
       if (file) {
-        // console.log(file[0].mediaLink);
-        res.status(200).send(file);
+        res.status(200).send(file[0]);
       } else {
         res.status(404).json({
           error: 404,
@@ -118,8 +127,16 @@ class FilesController {
           const fi = {
             id: fichero.id,
             name: fichero.name,
-            url: (`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(fileName)}?alt=media&token=${token}`),
-            metadata: fichero.metadata,
+            // Quitamos la URL ya que la podemos ecnapsular con nuestro propio método GET
+            // url: (`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(fileName)}?alt=media&token=${token}`),
+            // Serían los metadato del fichero segun Google Firebase
+            // metadata: fichero.metadata,
+            // Ponemos los metadatos que queremos para no volcar los de google
+            contentType: fichero.metadata.icontentType,
+            size: fichero.metadata.size,
+            md5Hash: fichero.metadata.md5Hash,
+            timeCreated: fichero.metadata.timeCreated,
+            updated: fichero.metadata.updated,
           };
           fs.unlinkSync(env.STORAGE + fileName);
           return res.status(200).json(fi);

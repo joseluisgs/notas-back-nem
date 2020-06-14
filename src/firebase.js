@@ -17,6 +17,7 @@ class Firebase {
    */
   start() {
     // Definimos una promesa que se resollverá si nos conecatmos correctamente
+    // eslint-disable-next-line consistent-return
     return new Promise((resolve) => {
       // Inicializamos Firebase Storage con el repositorio que nos da la consola
       if (env.FIREBASE_SERVICE.app) {
