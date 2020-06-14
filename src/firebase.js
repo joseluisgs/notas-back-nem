@@ -5,7 +5,6 @@
  */
 
 // Librerías
-import admin from 'firebase-admin';
 import env from './env';
 
 
@@ -20,12 +19,13 @@ class Firebase {
     // Definimos una promesa que se resollverá si nos conecatmos correctamente
     return new Promise((resolve) => {
       // Inicializamos Firebase Storage con el repositorio que nos da la consola
-      admin.initializeApp({
-        credential: admin.credential.cert(env.FIREBASE_SERVICE),
-        storageBucket: process.env.BUCKET_NAME,
-      });
-      console.log('⚑ Servicios de Firebase activos ✓');
-      resolve();
+      if (env.FIREBASE_SERVICE.app) {
+        console.log('⚑ Servicios de Firebase activos ✓');
+        resolve();
+      } else {
+        console.error('✕ Error: No se ha podido iniciar los servicios de Firebase');
+        return process.exit();
+      }
     });
   }
 }

@@ -6,7 +6,9 @@
  */
 
 // Librerías
-const conf = require('dotenv');
+import firebase from 'firebase-admin';
+import conf from 'dotenv';
+
 // Cogemos el objeto que necesitamos .env
 conf.config(); // Toda la configuración parseada del fichero .env
 
@@ -23,7 +25,7 @@ if (!paramsFirebase) {
   console.error('✕ Error: Faltán variables de entorno para la ejecución en Firebase. Por favor revise su fichero .env');
   process.exit();
 }
-// Variable de configuración de firebase
+// Variable de configuración de Firebase
 const serviceFirebase = {
   type: process.env.TYPE,
   project_id: process.env.PROJECT_ID,
@@ -36,6 +38,12 @@ const serviceFirebase = {
   auth_provider_x509_cert_url: process.env.AUTH_PROVIDER_X509_CERT_URL,
   client_x509_cert_url: process.env.CLIENT_X509_CERT_URL,
 };
+// incilizamos firebase para tenerlo global en toda la app. Esto es así porque Firebase detecta si las has iniciado varias veces
+firebase.initializeApp({
+  credential: firebase.credential.cert(serviceFirebase),
+  storageBucket: process.env.BUCKET_NAME,
+});
+const bucket = firebase.storage().bucket();
 
 // Es importante que pongamos unos valores por defecto por si no están en el .env o defnidos en el sistema
 const env = {
@@ -65,9 +73,10 @@ const env = {
   FILE_SIZE: process.env.FILE_SIZE || 2,
   FILES_PATH: process.env.FILES_PATH || 'files',
   FILES_URL: process.env.FILES_URL || 'files',
-  // FIREBASE
-  FIREBASE_SERVICE: serviceFirebase,
-  FIREBASE_BUCKET: 'notas-vue.appspot.com',
+  STORAGE: `${__dirname}/public/${process.env.FILES_PATH}/`,
+  // FIREBASE: añadir las cosas que vayas a necesitar
+  FIREBASE_SERVICE: firebase,
+  FIREBASE_BUCKET: bucket,
 };
 
 export default env;

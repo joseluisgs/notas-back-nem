@@ -23,11 +23,10 @@ class Server {
 
   // eslint-disable-next-line consistent-return
   async start() {
-    // Si no hay conexión a la base de datos no arancamos. No utilizo pronesas, si no await y async (promesas edulcodaras)
-    // Por si quiero poner algo para avisar que se conecta .then(() => console.log('⚑ Conectado a Servidor Mongo ✓'));
+    // Comprbamos si se ha inciiado MongoDB
     this.mongoDB = await db.connect();
 
-    // Iniciamos firebase
+    // Comprobamos que se ha iniciado Firebase
     this.firebase = await firebase.start();
 
     // Le apliacamos la configuracion
