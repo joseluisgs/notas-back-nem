@@ -94,9 +94,27 @@ describe('Batería de tests de Ficheros', () => {
           res.body.should.be.a('object');
           res.body.should.have.property('id');
           res.body.should.have.property('name');
-          res.body.should.have.property('url');
-          res.body.should.have.property('metadata');
+          res.body.should.have.property('contentType');
+          res.body.should.have.property('size');
+          res.body.should.have.property('md5Hash');
+          res.body.should.have.property('timeCreated');
+          res.body.should.have.property('updated');
           idFichero = res.body.id;
+          done();
+        });
+    });
+  });
+  /**
+   * TEST: GET Fichero por ID
+   */
+  describe('GET: Obtiene un fichero en base a su ID: ', () => {
+    // Listamos todas las notas
+    it('Debería obtener el fichero', (done) => {
+      chai.request(instance)
+        .get(`${Path}/${idFichero}`)
+        .set({ Authorization: `Bearer ${token}` })
+        .end((err, res) => {
+          expect(res).to.have.status(200);
           done();
         });
     });

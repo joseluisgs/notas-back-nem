@@ -35,7 +35,7 @@ class FilesController {
           // Serían los metadato del fichero segun Google Firebase
           // metadata: fichero.metadata,
           // Ponemos los metadatos que queremos para no volcar los de google
-          contentType: fichero.metadata.icontentType,
+          contentType: fichero.metadata.contentType,
           size: fichero.metadata.size,
           md5Hash: fichero.metadata.md5Hash,
           timeCreated: fichero.metadata.timeCreated,
@@ -132,7 +132,7 @@ class FilesController {
             // Serían los metadato del fichero segun Google Firebase
             // metadata: fichero.metadata,
             // Ponemos los metadatos que queremos para no volcar los de google
-            contentType: fichero.metadata.icontentType,
+            contentType: fichero.metadata.contentType,
             size: fichero.metadata.size,
             md5Hash: fichero.metadata.md5Hash,
             timeCreated: fichero.metadata.timeCreated,
