@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable class-methods-use-this */
 /**
  * CONTROLADOR DE FICHEROS
@@ -55,12 +56,10 @@ class FilesController {
   async fileById(req, res) {
     try {
       const bucket = env.FIREBASE_BUCKET;
-      const file = await bucket.file(req.params.id);
-      console.log(file.id);
-      console.log(file.name);
-      console.log(file.metadata);
+      const file = await bucket.file(req.params.id).getMetadata();
       if (file) {
-        res.status(200).json(file);
+        // console.log(file[0].mediaLink);
+        res.status(200).send(file);
       } else {
         res.status(404).json({
           error: 404,
@@ -114,7 +113,7 @@ class FilesController {
       })
         .then((data) => {
           const fichero = data[0];
-          bucket.file(file.name).makePublic(); // Hacemos publico en storage
+          bucket.file(fileName).makePublic(); // Hacemos publico en storage
           // Lo borramos
           const fi = {
             id: fichero.id,
@@ -129,6 +128,37 @@ class FilesController {
       res.status(500).json({
         error: 500,
         mensaje: 'No se ha podido añadir el fichero',
+        detalles: err,
+      });
+    }
+  }
+
+  /**
+     * Elimina un elemento en base a su ID.
+     * Códigos de estado: 200, OK, o 204, si no devolvemos nada 400 Bad request. 500 no permitido
+     * Asincrono para no usar promesas asyn/await
+     * @param {*} req Request
+     * @param {*} res Response
+     * @param {*} next Next function
+     */
+  // eslint-disable-next-line consistent-return
+  async deleteFileById(req, res) {
+    try {
+      // Busco el fichero y lo borro
+      const bucket = env.FIREBASE_BUCKET;
+      const file = await bucket.file(req.params.id);
+      const ok = await file.delete();
+      if (ok) {
+        return res.status(200).send(file.getMetadata());
+      }
+      res.status(404).json({
+        error: 404,
+        mensaje: `No se ha encontrado un item con ese ID: ${req.params.id}`,
+      });
+    } catch (err) {
+      res.status(500).json({
+        error: 500,
+        mensaje: 'No se ha podido eliminar el fichero',
         detalles: err,
       });
     }
