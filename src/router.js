@@ -7,6 +7,7 @@
 import notas from './routes/notas';
 import users from './routes/users';
 import auth from './routes/auth';
+import files from './routes/files';
 
 const Path = '/api';
 
@@ -18,8 +19,11 @@ export default (app) => {
   // Recurso notas
   app.use(`${Path}/notas`, notas);
 
-  // Recursos usuarios
+  // Recurso usuarios
   app.use(`${Path}/users`, users);
+
+  // Recurso fichero
+  app.use(`${Path}/files`, files);
 
   // Hola API
   // indicamos que para ruta quien la debe resolver
