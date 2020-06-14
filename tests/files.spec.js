@@ -87,6 +87,7 @@ describe('Batería de tests de Ficheros', () => {
       chai.request(instance)
         .post(`${Path}`)
         .set({ Authorization: `Bearer ${token}` })
+        .field('id', 'id-test') // Le paqsamos el id
         .attach('file', fs.readFileSync(`${__dirname}/test.png`), 'test.png')
         .end((err, res) => {
           // console.log(res.body);
@@ -125,7 +126,7 @@ describe('Batería de tests de Ficheros', () => {
   // eslint-disable-next-line no-undef
   describe('DELETE: Eliminar Fichero: ', () => {
     // eslint-disable-next-line no-undef
-    it('No Debería eliminar un fichero, le he pasado el id equivocado', (done) => {
+    it('Debería eliminar un fichero, le he pasado el id equivocado', (done) => {
       chai.request(instance)
         .delete(`${Path}/${idFichero}`)
         .set({ Authorization: `Bearer ${token}` })

@@ -111,7 +111,8 @@ class FilesController {
       const bucket = env.FIREBASE_BUCKET;
       // Lo subimos
       return bucket.upload(env.STORAGE + fileName, {
-        destination: fileName,
+        // Como notas y suario solo tienen una imagen el nombre finalmente será el id. Si no dejar fileName
+        destination: `${req.body.id}.${fileExt}` || fileName,
         uploadType: 'media',
         metadata: {
           contentType: fileMime,
