@@ -87,7 +87,7 @@ class UsersController {
       role: req.body.role || 'USER',
       avatar: req.body.avatar || null,
       fecha: req.body.fecha || Date.now(),
-      activo: req.body.activo || true,
+      activo: req.body.activo || '',
     });
     try {
       const data = await newUser.save();

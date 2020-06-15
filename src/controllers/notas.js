@@ -85,7 +85,7 @@ class NotasController {
       usuarioId: req.user._id, // La nota es del usuario identificado
       fecha: req.body.fecha || Date.now(),
       activo: req.body.activo || true,
-      fichero: req.body.fichero || null,
+      fichero: req.body.fichero || '',
     });
     try {
       const data = await newNota.save();
@@ -114,7 +114,7 @@ class NotasController {
       usuarioId: req.user._id, // La nota es del usuario identificado
       fecha: req.body.fecha || Date.now(),
       activo: req.body.activo || true,
-      fichero: req.body.fichero || null,
+      fichero: req.body.fichero || '',
     };
     try {
       const data = await Nota().findOneAndUpdate({ _id: req.params.id }, newNota, { new: true });
