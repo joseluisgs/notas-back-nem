@@ -30,7 +30,7 @@ const UserSchema = new Schema(
     password: { type: String, required: [true, 'Email obligatorio'] },
     fecha: { type: Date, default: Date.now },
     activo: { type: Boolean, default: true },
-    avatar: { type: String },
+    avatar: { type: Object},
     role: { type: String, default: 'USER', enum: roles },
   },
   // El método estriccto nos dice si aceptamos o no un documento incpleto. Lo ponemos así porque no vamos a meter el id y da un poco de flexibilidad
