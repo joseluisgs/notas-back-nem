@@ -15,7 +15,7 @@ const NotaSchema = new Schema(
     usuarioId: { type: String },
     fecha: { type: Date, default: Date.now },
     activo: { type: Boolean, default: true },
-    fichero: { type: String },
+    fichero: { type: Object },
   },
   // El método estriccto nos dice si aceptamos o no un documento con algo
   // que no cumpla esta especificacion. Lo ponemos así porque no vamos a meter el id y da un poco de flexibilidad
