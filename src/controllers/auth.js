@@ -51,7 +51,7 @@ class AuthController {
       const payload = {
         user,
         iat: Math.floor(Date.now() / 1000),
-        exp: Math.floor(Date.now() / 1000) + (60 * env.TOKEN_LIFE),
+        exp: Math.floor(Date.now() / 1000) + (60 * env.TOKEN_LIFE), // 60 segundos * Minutos definidos
       };
       const token = jwt.encode(payload, env.TOKEN_SECRET);
       // Devolvemos el token y el usuario, aunque el usuario también va en el token.
