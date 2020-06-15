@@ -31,7 +31,7 @@ class FilesController {
           id: fichero.id,
           name: fichero.name,
           // metadata: fichero.metadata,
-          // url:  url: (`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(fichero.name)}?alt=media&token=${fichero.metadata.metadata.firebaseStorageDownloadTokens}`),
+          url: (`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(fichero.name)}?alt=media&token=${fichero.metadata.metadata.firebaseStorageDownloadTokens}`),
           // Serían los metadato del fichero segun Google Firebase
           // metadata: fichero.metadata,
           // Ponemos los metadatos que queremos para no volcar los de google
@@ -129,7 +129,7 @@ class FilesController {
             id: fichero.id,
             name: fichero.name,
             // Quitamos la URL ya que la podemos ecnapsular con nuestro propio método GET
-            // url: (`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(fileName)}?alt=media&token=${token}`),
+            url: (`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(fileName)}?alt=media&token=${token}`),
             // Serían los metadato del fichero segun Google Firebase
             // metadata: fichero.metadata,
             // Ponemos los metadatos que queremos para no volcar los de google
