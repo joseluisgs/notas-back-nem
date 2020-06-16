@@ -26,7 +26,7 @@ class FilesController {
       const data = await bucket.getFiles();
       const lista = [];
       // eslint-disable-next-line no-restricted-syntax
-      for (const fichero of data[0]) {
+      data[0].forEach((fichero) => {
         const fi = {
           id: fichero.id,
           name: fichero.name,
@@ -42,7 +42,7 @@ class FilesController {
           updated: fichero.metadata.updated,
         };
         lista.push(fi);
-      }
+      });
       res.status(200).json(lista);
     } catch (err) {
       res.status(500).json({
