@@ -28,8 +28,8 @@ export default (app) => {
 
   // Indicamos los cors. Por si nos llega una peticion de una URL distintas
   // Nos permite configurar cabeceras y peticiones los que nos llegue
-  // app.use(cors());
-  app.use(cors({ origin: true }));
+  app.use(cors());
+  // app.use(cors({ origin: true }));
 
   // Configuramos el sistema de ficheros de subida
   app.use(fileUpload(
