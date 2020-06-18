@@ -36,7 +36,7 @@ export default (app) => {
     {
       createParentPath: true,
       limits: { fileSize: env.FILE_SIZE * 1024 * 1024 }, // en MB
-      useTempFiles: false, // Uso de ficheros temporales
+      useTempFiles: false, // Uso de ficheros temporales. Debes ponerlo a false si vas a publicar en Heroku (tema de ficheros temporales en dicha plataforma)
       tempFileDir: '/tmp/', // Usamos un directorio y ficheros temporal y no memoria para el proceso de subida.
       preserveExtension: true, // dejamos la extensión por defecto
       debug: env.NODE_ENV !== 'test' ? env.DEBUG : false, // Modo de depuración (no saco los mensajes en test)
