@@ -7,125 +7,528 @@
 	},
 	"item": [
 		{
-			"name": "GET Todas",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8000/api/notas",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"notas"
-					]
+			"name": "Notas",
+			"item": [
+				{
+					"name": "GET Todas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7Il9pZCI6IjVlZGZjNWNiN2Q3ZDhlMGIxY2E0OTNhZiIsImFjdGl2byI6dHJ1ZSwicm9sZSI6IkFETUlOIiwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkMFBSOHplOW96bTBrVVlEb292MFI4T3RDb050VFk2WEdqZ29uVE9lT1dzRWJZWXQ3MEVZZ2EiLCJhdmF0YXIiOm51bGwsImZlY2hhIjoiMjAyMC0wNi0wOVQxNzoyNDoyNy41NDdaIiwiX192IjowfSwiaWF0IjoxNTkxODA0NTM0LCJleHAiOjE1OTE4MDgxMzR9.2tcm_nWwP29vxI2xh9p2e_hLTVkC4KqZn6tCaaSoT9E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/notas",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"notas"
+							]
+						},
+						"description": "Obtiene la lista de todas las notas"
+					},
+					"response": []
 				},
-				"description": "Obtiene la lista de todas las notas"
-			},
-			"response": []
+				{
+					"name": "POST Nueva Nota",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7Il9pZCI6IjVlZGZjNWNiN2Q3ZDhlMGIxY2E0OTNhZiIsImFjdGl2byI6dHJ1ZSwicm9sZSI6IkFETUlOIiwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkMFBSOHplOW96bTBrVVlEb292MFI4T3RDb050VFk2WEdqZ29uVE9lT1dzRWJZWXQ3MEVZZ2EiLCJhdmF0YXIiOm51bGwsImZlY2hhIjoiMjAyMC0wNi0wOVQxNzoyNDoyNy41NDdaIiwiX192IjowfSwiaWF0IjoxNTkxODA0NTM0LCJleHAiOjE1OTE4MDgxMzR9.2tcm_nWwP29vxI2xh9p2e_hLTVkC4KqZn6tCaaSoT9E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titulo\": \"Nota de prueba\",\n    \"descripcion\": \"Esto es una prueba\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/notas",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"notas"
+							]
+						},
+						"description": "Añade una nueva nota"
+					},
+					"response": []
+				},
+				{
+					"name": "GET Nota por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/notas/5eda22b4e921322a1570a7f3",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"notas",
+								"5eda22b4e921322a1570a7f3"
+							]
+						},
+						"description": "Obtiene una Nota dado su id"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Modificar Nota por id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titulo\": \"Nota de prueba mod\",\n    \"descripcion\": \"Esto es una prueba mod\",\n    \"usuarioId\": \"1234mod\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/notas/5eda22b4e921322a1570a7f3",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"notas",
+								"5eda22b4e921322a1570a7f3"
+							]
+						},
+						"description": "Modifica una nota dado su id"
+					},
+					"response": []
+				},
+				{
+					"name": "Elimina una nota por id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/notas/5eda1c94c619f9266f1595d5",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"notas",
+								"5eda1c94c619f9266f1595d5"
+							]
+						},
+						"description": "Elimina una nota por id"
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD de Notas",
+			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "POST Nueva Nota",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"titulo\": \"Nota de prueba\",\n    \"descripcion\": \"Esto es una prueba\",\n    \"usuarioId\": \"1234\"\n }",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Users",
+			"item": [
+				{
+					"name": "GET Listar Usuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/users",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users"
+							]
+						},
+						"description": "Lista todos los usuarios"
+					},
+					"response": []
+				},
+				{
+					"name": "GET Listar Usuario por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/users/5edf4cbffe84df13a9ea68ec",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"users",
+								"5edf4cbffe84df13a9ea68ec"
+							]
+						},
+						"description": "Lista un usuario dado su ID"
+					},
+					"response": []
+				},
+				{
+					"name": "POST Añadir Usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"prueba\",\n    \"email\": \"prueba@prueba.com\",\n    \"password\": \"prueba\",\n    \"role\": \"USER\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/users",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users"
+							]
+						},
+						"description": "Añade un usuario dado su ID"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Modificar Usuario por ID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \n    \"role\": \"USER\",\n    \"password\" : \"pepe\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/users/5edfcc14b8230e0e3431c8e6",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"5edfcc14b8230e0e3431c8e6"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "localhost:8000/api/notas",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"notas"
-					]
-				},
-				"description": "Añade una nueva nota"
-			},
-			"response": []
+				{
+					"name": "DELETE Elimina un usuariop por ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/users/5edf4cbffe84df13a9ea68ec",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"5edf4cbffe84df13a9ea68ec"
+							]
+						},
+						"description": "Elimina un usuario dado su ID"
+					},
+					"response": []
+				}
+			],
+			"description": "Recurso usuario",
+			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "GET Nota por id",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8000/api/notas/5eda22b4e921322a1570a7f3",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"notas",
-						"5eda22b4e921322a1570a7f3"
-					]
+			"name": "Auth",
+			"item": [
+				{
+					"name": "POST Auth Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@admin.com\",\n    \"password\": \"admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						},
+						"description": "Realiza el login"
+					},
+					"response": []
 				},
-				"description": "Obtiene una Nota dado su id"
-			},
-			"response": []
+				{
+					"name": "POST Auth Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7Il9pZCI6IjVlZGZjNWNiN2Q3ZDhlMGIxY2E0OTNhZiIsImFjdGl2byI6dHJ1ZSwicm9sZSI6IkFETUlOIiwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiYXZhdGFyIjpudWxsLCJmZWNoYSI6IjIwMjAtMDYtMDlUMTc6MjQ6MjcuNTQ3WiIsIl9fdiI6MH0sImlhdCI6MTU5MTg4NjAwMCwiZXhwIjoxNTkxODg5NjAwfQ.8xGadPMHKoKfs9fJtaZXI5NlqUgQOvtHwd1YBmgikqI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/auth/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						},
+						"description": "Realiza el logout del usuario"
+					},
+					"response": []
+				},
+				{
+					"name": "POST Registrar usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"prueba\",\n    \"email\": \"prueba@prueba.com\",\n    \"password\": \"prueba\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						},
+						"description": "Registra un usuario"
+					},
+					"response": []
+				}
+			],
+			"description": "Funciones de identificación y registro",
+			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "PUT Modificar Nota por id",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"titulo\": \"Nota de prueba mod\",\n    \"descripcion\": \"Esto es una prueba mod\",\n    \"usuarioId\": \"1234mod\"\n }",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Files",
+			"item": [
+				{
+					"name": "GET Listar Fichero por ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7Il9pZCI6IjVlZGZjNWNiN2Q3ZDhlMGIxY2E0OTNhZiIsImFjdGl2byI6dHJ1ZSwicm9sZSI6IkFETUlOIiwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiYXZhdGFyIjpudWxsLCJmZWNoYSI6IjIwMjAtMDYtMDlUMTc6MjQ6MjcuNTQ3WiIsIl9fdiI6MH0sImlhdCI6MTU5MjE0NTYzMSwiZXhwIjoxNTkyMTQ5MjMxfQ.G-5k2vcE1qEub962E_duq99rx98Q7AZ4heNfAMVaX4U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/files/876843d6c942d13229e8fc16bbb9e884.jpg",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"files",
+								"876843d6c942d13229e8fc16bbb9e884.jpg"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "localhost:8000/api/notas/5eda22b4e921322a1570a7f3",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"notas",
-						"5eda22b4e921322a1570a7f3"
-					]
+				{
+					"name": "GET Listar Ficheros",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7Il9pZCI6IjVlZGZjNWNiN2Q3ZDhlMGIxY2E0OTNhZiIsImFjdGl2byI6dHJ1ZSwicm9sZSI6IkFETUlOIiwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiYXZhdGFyIjpudWxsLCJmZWNoYSI6IjIwMjAtMDYtMDlUMTc6MjQ6MjcuNTQ3WiIsIl9fdiI6MH0sImlhdCI6MTU5MjE0NTYzMSwiZXhwIjoxNTkyMTQ5MjMxfQ.G-5k2vcE1qEub962E_duq99rx98Q7AZ4heNfAMVaX4U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/files",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"files"
+							]
+						},
+						"description": "Lista todos los ficheros"
+					},
+					"response": []
 				},
-				"description": "Modifica una nota dado su id"
-			},
-			"response": []
-		},
-		{
-			"name": "Elimina una nota por id",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "localhost:8000/api/notas/5eda1c94c619f9266f1595d5",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"notas",
-						"5eda1c94c619f9266f1595d5"
-					]
+				{
+					"name": "POST Añadir fichero",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7Il9pZCI6IjVlZGZjNWNiN2Q3ZDhlMGIxY2E0OTNhZiIsImFjdGl2byI6dHJ1ZSwicm9sZSI6IkFETUlOIiwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiYXZhdGFyIjpudWxsLCJmZWNoYSI6IjIwMjAtMDYtMDlUMTc6MjQ6MjcuNTQ3WiIsIl9fdiI6MH0sImlhdCI6MTU5MjE0NTYzMSwiZXhwIjoxNTkyMTQ5MjMxfQ.G-5k2vcE1qEub962E_duq99rx98Q7AZ4heNfAMVaX4U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/link/Desktop/fullmetal.jpg"
+								}
+							],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/files",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"files"
+							],
+							"query": [
+								{
+									"key": "file",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
 				},
-				"description": "Elimina una nota por id"
-			},
-			"response": []
+				{
+					"name": "DELETE eliminra fichero dado un id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/files/876843d6c942d13229e8fc16bbb9e884.jpg",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"files",
+								"876843d6c942d13229e8fc16bbb9e884.jpg"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Operaciones con ficheros",
+			"protocolProfileBehavior": {}
 		}
 	],
 	"protocolProfileBehavior": {}

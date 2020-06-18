@@ -50,7 +50,7 @@ class Database {
       // Si hay un error, salimos de la apliación
       this.conn.on('error', (err) => {
         if (process.env.NODE_ENV !== 'test') {
-          console.error('✕ Mongo Error', err);
+          console.error('✕ MongoDB Error', err);
         }
         return process.exit();
       });
@@ -58,7 +58,7 @@ class Database {
       // Si recibimos el evento conectamos
       this.conn.on('connected', () => {
         if (process.env.NODE_ENV !== 'test') {
-          console.log('⚑ Conectado a Servidor Mongo ✓');
+          console.log('⚑ Conectado a Servidor MongoDB ✓');
         }
         resolve(); // Resolvemos la promesa
       });

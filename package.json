@@ -43,7 +43,10 @@
     "prune": "npm prune --production",
     "test": "NODE_ENV=test mocha --exit --require @babel/register --timeout 10000 tests/",
     "test-notas": "NODE_ENV=test mocha --exit --require @babel/register --timeout 10000 tests/notas.spec.js",
-    "test-ci": "npm run test-notas",
+    "test-users": "NODE_ENV=test mocha --exit --require @babel/register --timeout 10000 tests/users.spec.js",
+    "test-auth": "NODE_ENV=test mocha --exit --require @babel/register --timeout 10000 tests/auth.spec.js",
+    "test-files": "NODE_ENV=test mocha --exit --require @babel/register --timeout 10000 tests/files.spec.js",
+    "test-ci": "npm run test-auth && npm run test-notas && npm run test-users && npm run test-files",
     "lint-ci": "eslint --fix --quiet 'src/**/*.js'"
   },
   "devDependencies": {
@@ -62,6 +65,8 @@
     "nodemon": "^2.0.3"
   },
   "dependencies": {
+    "axios": "^0.19.2",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "connect-history-api-fallback": "^1.6.0",
     "cors": "^2.8.5",
@@ -69,9 +74,13 @@
     "express": "^4.17.1",
     "express-fileupload": "^1.1.7-alpha.3",
     "express-handlebars": "^4.0.4",
+    "firebase-admin": "^8.12.1",
+    "fs": "0.0.1-security",
     "jwt-simple": "^0.5.6",
+    "mime-types": "^2.1.27",
     "mongoose": "^5.9.11",
+    "mongoose-unique-validator": "^2.0.3",
     "morgan": "^1.10.0",
-    "uuid": "^8.0.0"
+    "uuid": "^8.1.0"
   }
 }

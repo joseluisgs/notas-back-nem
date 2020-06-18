@@ -15,7 +15,9 @@ const { expect } = chai;
 chai.use(chaiHttp);
 
 // Variables globales para todas las pruebas
+const Path = '/api/notas';
 let idNota;
+let token;
 
 /**
  * TEST: Notas
@@ -35,6 +37,30 @@ describe('Batería de tests de Notas', () => {
     instance.close();
   });
 
+  /**
+   * TEST POST Login como Usuario
+   */
+  describe('POST: Identificar como usuario: ', () => {
+    it('Debería autenticar a usuario', (done) => {
+      const user = {
+        email: 'admin@admin.com',
+        password: 'admin',
+      };
+      chai.request(instance)
+        .post('/api/auth/login')
+        .send(user)
+        .end((err, res) => {
+          // console.log(res.body);
+          expect(res).to.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('user');
+          res.body.should.have.property('token');
+          token = res.body.token;
+          done();
+        });
+    });
+  });
+
 
   /**
    * TEST: GET ALL
@@ -43,7 +69,8 @@ describe('Batería de tests de Notas', () => {
     // Listamos todas las notas
     it('Debería obtener todas las notas', (done) => {
       chai.request(instance)
-        .get('/api/notas')
+        .get(`${Path}`)
+        .set({ Authorization: `Bearer ${token}` })
         .end((err, res) => {
           // console.log(res.body);
           expect(res).to.have.status(200);
@@ -64,7 +91,8 @@ describe('Batería de tests de Notas', () => {
         usuarioId: '1234',
       };
       chai.request(instance)
-        .post('/api/notas')
+        .post(`${Path}`)
+        .set({ Authorization: `Bearer ${token}` })
         .send(nota)
         .end((err, res) => {
           expect(res).to.have.status(201);
@@ -88,7 +116,8 @@ describe('Batería de tests de Notas', () => {
         usuarioId: '1234',
       };
       chai.request(instance)
-        .post('/api/notas')
+        .post(`${Path}`)
+        .set({ Authorization: `Bearer ${token}` })
         .send(nota)
         .end((err, res) => {
           expect(res).to.have.status(500);
@@ -104,7 +133,8 @@ describe('Batería de tests de Notas', () => {
     // Caso con un id que existe
     it('Debería obtener una nota dado su id', (done) => {
       chai.request(instance)
-        .get(`/api/notas/${idNota}`)
+        .get(`${Path}/${idNota}`)
+        .set({ Authorization: `Bearer ${token}` })
         .end((err, res) => {
           // console.log(res.body);
           res.should.have.status(200);
@@ -124,7 +154,8 @@ describe('Batería de tests de Notas', () => {
     it('Debería fallar porque no existe una nota con este id', (done) => {
       const id = '5eda22b4e921322a1570a7f9';
       chai.request(instance)
-        .get(`/api/notas/${id}`)
+        .get(`${Path}/${id}`)
+        .set({ Authorization: `Bearer ${token}` })
         .end((err, res) => {
           // console.log(res.body);
           res.should.have.status(404);
@@ -136,7 +167,8 @@ describe('Batería de tests de Notas', () => {
     it('Debería fallar porque el id es mal formado', (done) => {
       const id = 'patata';
       chai.request(instance)
-        .get(`/api/notas/${id}`)
+        .get(`${Path}/${id}`)
+        .set({ Authorization: `Bearer ${token}` })
         .end((err, res) => {
           // console.log(res.body);
           res.should.have.status(500);
@@ -158,7 +190,8 @@ describe('Batería de tests de Notas', () => {
         usuarioId: '1234',
       };
       chai.request(instance)
-        .put(`/api/notas/${idNota}`)
+        .put(`${Path}/${idNota}`)
+        .set({ Authorization: `Bearer ${token}` })
         .send(nota)
         .end((err, res) => {
           expect(res).to.have.status(200);
@@ -183,7 +216,8 @@ describe('Batería de tests de Notas', () => {
         usuarioId: '1234',
       };
       chai.request(instance)
-        .put(`/api/notas/${id}`)
+        .put(`${Path}/${id}`)
+        .set({ Authorization: `Bearer ${token}` })
         .send(nota)
         .end((err, res) => {
           expect(res).to.have.status(404);
@@ -200,7 +234,8 @@ describe('Batería de tests de Notas', () => {
         usuarioId: '1234',
       };
       chai.request(instance)
-        .put(`/api/notas/${id}`)
+        .put(`${Path}/${id}`)
+        .set({ Authorization: `Bearer ${token}` })
         .send(nota)
         .end((err, res) => {
           expect(res).to.have.status(500);
@@ -216,7 +251,8 @@ describe('Batería de tests de Notas', () => {
     // Eliminar la nota
     it('Debería eliminar una nota', (done) => {
       chai.request(instance)
-        .delete(`/api/notas/${idNota}`)
+        .delete(`${Path}/${idNota}`)
+        .set({ Authorization: `Bearer ${token}` })
         .end((err, res) => {
           // console.log(res.body);
           expect(res).to.have.status(200);
@@ -236,7 +272,8 @@ describe('Batería de tests de Notas', () => {
     it('No debería eliminar una Nota, no existe el id', (done) => {
       const id = '5eda22b4e921322a1570a7f9';
       chai.request(instance)
-        .delete(`/api/notas/${idNota}`)
+        .delete(`${Path}/${id}`)
+        .set({ Authorization: `Bearer ${token}` })
         .end((err, res) => {
           expect(res).to.have.status(404);
           done();
@@ -247,12 +284,27 @@ describe('Batería de tests de Notas', () => {
     it('No debería eliminar una Nota, no existe esta mal formado', (done) => {
       const id = 'patata';
       chai.request(instance)
-        .delete(`/api/notas/${idNota}`)
+        .delete(`${Path}/${id}`)
+        .set({ Authorization: `Bearer ${token}` })
         .end((err, res) => {
-          expect(res).to.have.status(404);
+          expect(res).to.have.status(500);
           done();
         });
     });
   });
-// Notas
+  /**
+   * TEST POST, Cierra la sesión del usuario
+   * Debe ser el último test
+   */
+  describe('POST: Salir de sesión usuario: ', () => {
+    it('Debería salir de la sesión', (done) => {
+      chai.request(instance)
+        .post('/api/auth/logout')
+        .set({ Authorization: `Bearer ${token}` })
+        .end((err, res) => {
+          expect(res).to.have.status(204);
+          done();
+        });
+    });
+  });
 });

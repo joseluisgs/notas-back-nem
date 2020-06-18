@@ -3,8 +3,8 @@
 Backend para una aplicación de notas usando NodeJS, Express y MongoDB. Como siempre para uso docente y educativo.
 
 ![NotasBackNEM CI/CD](https://github.com/joseluisgs/notas-back-nem/workflows/NotasBackNEM%20CI/CD/badge.svg)
-[![Docker](https://img.shields.io/badge/Docker-passing-blue)](https://hub.docker.com/r/joseluisgs/notas-back-nem)
-[![Heroku](https://img.shields.io/badge/Heroku-passing-blueviolet)](https://notas-back-nem.herokuapp.com/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-blue)](https://hub.docker.com/r/joseluisgs/notas-back-nem)
+[![Heroku](https://img.shields.io/badge/Heroku-Ready-blueviolet)](https://notas-back-nem.herokuapp.com/)
 [![Licence](https://img.shields.io/github/license/joseluisgs/NodeMonRest)](https://github.com/joseluisgs/NodeMonRest/blob/master/LICENSE)
 [![JS Code](https://img.shields.io/badge/JS%20Code-ES2019-yellow)](https://www.ecma-international.org/ecma-262)
 [![JS Style](https://img.shields.io/badge/JS%20Style-AirBnB-ff69b4)](https://airbnb.io/javascript)
@@ -12,6 +12,7 @@ Backend para una aplicación de notas usando NodeJS, Express y MongoDB. Como sie
 
 ### Acerca de
 Este proyecto tiene como objetivo hacer la parte de backend por capas de una apliación de notas para consumirla con distintos clientes usando las tecnologías de [NodeJS](https://nodejs.org/es/), [Mongo DB](https://www.mongodb.com/es) y [Express](https://expressjs.com/es/) y está basada en el proyecto [NodeMonREST](https://github.com/joseluisgs/NodeMonRest) que podrás consultar para más detalles.
+Como implementación de almacenamiento se ha utilizado [Google Firebase Cloud Storage](https://firebase.google.com/).
 
 ## Requisitos del sistema
 * [NodeJS](https://nodejs.org/es/) en su [última version](https://nodejs.org/es/download/)
