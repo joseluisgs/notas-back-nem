@@ -12,6 +12,7 @@ Backend para una aplicación de notas usando NodeJS, Express y MongoDB. Como sie
 
 ### Acerca de
 Este proyecto tiene como objetivo hacer la parte de backend por capas de una apliación de notas para consumirla con distintos clientes usando las tecnologías de [NodeJS](https://nodejs.org/es/), [Mongo DB](https://www.mongodb.com/es) y [Express](https://expressjs.com/es/) y está basada en el proyecto [NodeMonREST](https://github.com/joseluisgs/NodeMonRest) que podrás consultar para más detalles.
+Como implementación de almacenamiento se ha utilizado [Google Firebase Cloud Storage](https://firebase.google.com/).
 
 ## Requisitos del sistema
 * [NodeJS](https://nodejs.org/es/) en su [última version](https://nodejs.org/es/download/)
